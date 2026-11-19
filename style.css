@@ -3676,3 +3676,103 @@ input,textarea,select{color:#482b34}
  .ritual-intro p{font-size:18px!important}
 }
 @media(prefers-reduced-motion:reduce){.ritual-step,.ritual-visual-photo{transition:none!important}}
+
+/* PRESSN'POP — final editorial palette: blush, warm beige and ink */
+:root{--pnp-ink:#211c1c;--pnp-ink-soft:#514747;--pnp-beige:#f4eee5;--pnp-cream:#fffaf4;--pnp-blush:#f5dfe3;--pnp-pink:#e9c3ce;--pnp-rose:#bd718c;--pnp-deep:#733e51}
+body{background:var(--pnp-cream)!important;color:var(--pnp-ink)!important}
+body,button,input,textarea,select{font-family:'Poppins',Arial,sans-serif}
+/* Never use pale heading text on a pale surface. */
+section:not(.ritual-section) h1,section:not(.ritual-section) h2,section:not(.ritual-section) h3,section:not(.ritual-section) h4,
+.rubrik h2,.hero-text h1,.hero-text h2,.site-detail-menu-heading{color:var(--pnp-ink)!important;text-shadow:none!important}
+.rubrik h2,.hero-text h1,.ritual-intro h2,.ritual-step h3,#omoss h2,#kontakt h2{
+ font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:500!important;letter-spacing:-.035em!important
+}
+.rubrik h2,.hero-text h1{font-size:clamp(42px,6vw,78px)!important}
+.rubrik span,.section-kicker,.hero .liten-text{color:var(--pnp-deep)!important}
+section p,section li,.faq-answer,.faq-item summary{color:var(--pnp-ink-soft)}
+/* Light editorial surfaces */
+.how-it-works,.design-section,.size-section,.custom-section,.about-section,.info-section,.policy-section,.included-section:not(.ritual-section),#kontakt{
+ background:var(--pnp-cream)!important;color:var(--pnp-ink)!important
+}
+.hero{background:linear-gradient(130deg,#fffaf4 0%,#f7e9e4 53%,#efd6dc 100%)!important;color:var(--pnp-ink)!important}
+.hero-text h1,.hero-text h2,.hero-text p,.hero .liten-text{color:var(--pnp-ink)!important}
+.hero-text h1{font-family:'Cormorant Garamond',Georgia,serif!important;font-style:italic!important;font-weight:500!important;letter-spacing:-.045em!important}
+.hero-text h2{font-family:'Cormorant Garamond',Georgia,serif!important;color:#423637!important}
+.hero-text p{color:#514747!important}
+/* Product cards regain a rich dark backdrop, soft shadow and clear type */
+.design-section .nagel-kort,.design-section .product-card,.extra-card{
+ background:linear-gradient(155deg,#30292a,#171516)!important;color:#fffaf4!important;
+ border:1px solid rgba(255,255,255,.09)!important;border-radius:18px!important;
+ box-shadow:0 18px 42px rgba(34,24,27,.17)!important;overflow:hidden
+}
+.design-section .nagel-info h3,.design-section .nagel-info p,.design-section .product-card h3,.extra-card h3{color:#fffaf4!important}
+.design-section .nagel-info p,.extra-card p{color:#e4d9d5!important}
+.design-section .product-card-price{color:#efb7c8!important}
+.design-section .nagel-bild{background:#e9d9d2!important}
+.knapp{background:#bd718c!important;color:#fffaf4!important;border-color:#bd718c!important}
+.knapp:hover{background:#9e5b75!important}
+.knapp-outline{background:transparent!important;color:#733e51!important;border-color:#a96a80!important}
+/* Navigation and selected dark panels: intentionally light type */
+.pnp-nav,.site-detail-menu,.footer,.dark-section{background:#211c1c!important;color:#fffaf4!important}
+.pnp-nav a,.pnp-nav button,.site-detail-menu a,.site-detail-menu p,.site-detail-menu-heading,.footer,.footer a{color:#fffaf4!important}
+.pnp-nav .site-menu-toggle span{background:#fffaf4!important}
+/* FAQ: dark text on beige, open answer is easy to scan */
+.info-section .rubrik h2,.info-section .rubrik span{color:var(--pnp-ink)!important}
+.faq-item,.info-grid .faq-item{background:#f4eee5!important;border:1px solid #e7d9d2!important;color:var(--pnp-ink)!important;box-shadow:0 8px 24px rgba(40,28,29,.045)!important}
+.faq-item summary{color:#211c1c!important;font-size:clamp(16px,1.25vw,19px)!important;font-weight:600!important}
+.faq-answer{color:#403838!important;font-size:16px!important;line-height:1.8!important}
+.faq-search-wrap label,.faq-search-hint{color:#403838!important}
+.faq-search-field{background:#fffaf4!important;border-color:#d9c9c1!important}
+.faq-search-field input{color:#211c1c!important}
+/* Size guide gets more presence and a clear step-by-step form */
+.size-section .rubrik h2{font-size:clamp(48px,6vw,76px)!important}
+.size-section .rubrik p{max-width:760px;margin-inline:auto;color:#403838!important;font-size:clamp(17px,1.4vw,20px)!important;line-height:1.7!important}
+.size-finder{background:linear-gradient(145deg,#f5e3e4,#fffaf4 65%)!important;border:1px solid #e5cbd0!important;color:#211c1c!important;box-shadow:0 24px 60px rgba(55,34,38,.09)!important}
+.size-finder h3,.size-finder .finder-measure-label{color:#211c1c!important}
+.size-finder h3{font:500 clamp(36px,4.2vw,54px)/1.05 'Cormorant Garamond',Georgia,serif!important}
+.size-finder-intro,.finder-measure-help,.finder-hint,.finder-footnote{color:#514747!important;font-size:16px!important;line-height:1.65!important}
+.finder-finger-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.finder-finger-grid label,.finder-toe-measure label{display:flex;flex-direction:column;gap:8px;padding:15px 16px;background:#fffaf4;border:1px solid #e5d4cf;border-radius:13px;color:#211c1c;font-size:15px;font-weight:600}
+.finder-finger-grid label>div,.finder-toe-measure>div{display:flex;align-items:center;gap:9px}
+.finder-finger-grid input,.finder-toe-measure input{width:100%;min-width:0;padding:12px 13px;background:#fff!important;border:1px solid #d8c7c2;border-radius:9px;color:#211c1c!important;font-size:18px!important}
+.finder-finger-grid small,.finder-toe-measure small{color:#514747;font-size:14px}
+.finder-show-results{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border:0;border-radius:999px;background:#211c1c;color:#fffaf4;font-weight:600;cursor:pointer}
+.finder-result{margin-top:20px;padding:20px;background:#fffaf4;border:1px solid #e4d4ce;border-radius:15px;color:#211c1c!important}
+.finder-result .finder-label{display:block;color:#733e51;font-size:12px;font-weight:700;letter-spacing:.1em;margin-bottom:12px}
+.finder-result-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:11px 0;border-bottom:1px solid #eee2dc;color:#211c1c}
+.finder-result-row span{display:flex;flex-direction:column;gap:3px}.finder-result-row small{color:#6b5d5b;font-size:12px}.finder-result-row strong{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#f2dce1;color:#211c1c;font:600 20px 'Cormorant Garamond',serif}
+.finder-result-advice{margin:14px 0 0;color:#514747!important;font-size:14px!important}
+.size-card{background:#fffaf4!important;color:#211c1c!important;border:1px solid #e8dcd4!important;box-shadow:0 12px 32px rgba(40,28,29,.06)!important}
+.size-card h3,.size-card p,.size-table th,.size-table td{color:#211c1c!important}
+/* Six-step kit guide: animated custom line-art objects instead of unrelated photos */
+.ritual-section{background:linear-gradient(135deg,#f4eee5 0%,#f7e4e6 58%,#f0dce0 100%)!important;color:#211c1c!important;padding-block:clamp(72px,9vw,128px)!important}
+.ritual-intro h2{font:italic 500 clamp(52px,7vw,90px)/.96 'Cormorant Garamond',Georgia,serif!important;color:#211c1c!important;letter-spacing:-.045em!important}
+.ritual-intro h2 em{color:#815065!important}
+.ritual-eyebrow,.ritual-step-top,.ritual-step .ritual-item-note{color:#815065!important}
+.ritual-intro p{color:#514747!important;font:400 20px/1.6 'Cormorant Garamond',Georgia,serif!important}
+.ritual-visual-sticky{background:linear-gradient(145deg,#292324,#171516 76%)!important;border:1px solid rgba(0,0,0,.15)!important;box-shadow:0 28px 70px rgba(33,24,25,.2)!important}
+.ritual-visual-orbit{border-color:rgba(245,220,225,.22)!important;box-shadow:0 0 0 25px rgba(245,220,225,.04),0 0 0 65px rgba(245,220,225,.025)!important}
+.ritual-visual-core{display:flex!important;align-items:center!important;justify-content:center!important;background:radial-gradient(circle at 50% 40%,#514147,#282122 70%)!important;border:1px solid rgba(255,250,244,.16)!important;box-shadow:0 24px 65px rgba(0,0,0,.28)!important;transform:translateY(0) rotate(-2deg)!important;transition:transform .5s cubic-bezier(.2,.75,.25,1),filter .5s!important}
+.ritual-visual-core.is-changing{transform:translateY(-8px) rotate(1deg) scale(.97)!important;filter:brightness(1.18)!important}
+.ritual-visual-number{color:#f0cbd5!important;font:500 25px 'Cormorant Garamond',serif!important}
+.ritual-illustration{width:72%;height:72%;display:grid;place-items:center;transition:transform .55s cubic-bezier(.2,.75,.25,1),opacity .35s ease;opacity:1}
+.ritual-visual-core.is-changing .ritual-illustration{transform:translateY(9px) scale(.9);opacity:.45}
+.ritual-illustration svg{width:100%;height:100%;overflow:visible}
+.ritual-illustration svg path,.ritual-illustration svg rect{fill:none;stroke:#f5dfe3;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ritual-illustration svg path:nth-child(even){stroke:#d89aaf;stroke-width:3.5}
+.ritual-visual-caption{color:#211c1c!important;background:#f5e5e5!important;font:600 11px 'Poppins',sans-serif!important;letter-spacing:.12em!important}
+.ritual-visual-meta{color:#f5dfe3!important}
+.ritual-step{min-height:72vh!important;display:flex!important;flex-direction:column!important;justify-content:center!important;padding:65px 0!important;opacity:.28!important;transform:translateY(25px)!important;transition:opacity .65s ease,transform .65s cubic-bezier(.2,.75,.25,1)!important}
+.ritual-step.is-active{opacity:1!important;transform:translateY(0)!important}
+.ritual-step h3{font:italic 500 clamp(44px,5.3vw,72px)/.98 'Cormorant Garamond',Georgia,serif!important;color:#211c1c!important;letter-spacing:-.035em!important}
+.ritual-step p{color:#403838!important;font:400 19px/1.7 'Cormorant Garamond',Georgia,serif!important}
+.ritual-tip{background:#fffaf4!important;border-left:3px solid #bd718c!important;box-shadow:0 12px 30px rgba(35,25,27,.07)!important}
+.ritual-tip b{color:#815065!important}.ritual-tip span{color:#403838!important;font:400 17px/1.6 'Cormorant Garamond',Georgia,serif!important}
+.ritual-note{color:#514747!important}
+.ritual-progress{background:rgba(255,250,244,.2)!important}.ritual-progress span{background:#e5aabd!important}
+/* Contact and other text fields retain contrast */
+.pnp-contact-form,.contact-card{background:#fffaf4!important;color:#211c1c!important;border-color:#e6d6d1!important}
+.pnp-contact-form h3,.pnp-contact-form label,.contact-card h3{color:#211c1c!important}
+.pnp-contact-form input,.pnp-contact-form textarea,.pnp-contact-form select{background:#fff!important;color:#211c1c!important;border-color:#d9c9c2!important}
+@media(max-width:700px){.finder-finger-grid{grid-template-columns:1fr}.ritual-step{min-height:65vh!important}.ritual-illustration{width:67%;height:67%}}
+@media(prefers-reduced-motion:reduce){.ritual-step,.ritual-visual-core,.ritual-illustration{transition:none!important}}

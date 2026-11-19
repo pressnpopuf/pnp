@@ -3216,49 +3216,47 @@ document.addEventListener("click", function(event) {
 });
 
 
-/* PRESSN'POP — guided size finder */
+/* PRESSN'POP — five-finger size finder */
 (function(){
  const widths={
   "Square":[17,16,15,14,13,12,12,11,11,10,9,8],
   "Coffin":[16.5,16,15,14.5,14,12.5,12,11.5,11,10.5,9.5,8.5],
   "Almond Medium":[17,16,15,14,13,12.5,12,11.5,11,10.5,9.5,8.5],
   "Almond Short":[19,17.5,16,15,14.5,14,13.5,13,12,11,10,9],
-  "Toes":[23,21.5,20.5,20,19,18,15,14,13,12]
+  "Toes":[23,21.5,20.5,20,19,18,15,14,13,12,10.5,10,9,8,7]
  };
- let type="",shape="";
- const $=id=>document.getElementById(id);
- function step(which){
-  ["finderTypeStep","finderShapeStep","finderMeasureStep"].forEach(id=>$(id).hidden=id!==which);
-  $("finderProgress").style.width=which==="finderTypeStep"?"33.33%":which==="finderShapeStep"?"66.66%":"100%";
-  $("finderResult").hidden=true;
- }
+ const fingers=["Lillfinger","Ringfinger","Långfinger","Pekfinger","Tumme"];
+ let type="",shape=""; const $=id=>document.getElementById(id);
+ function step(which){["finderTypeStep","finderShapeStep","finderMeasureStep"].forEach(id=>$(id).hidden=id!==which);$("finderProgress").style.width=which==="finderTypeStep"?"33.33%":which==="finderShapeStep"?"66.66%":"100%";$("finderResult").hidden=true;}
+ function closest(mm,arr){let best=0;arr.forEach((v,i)=>{if(Math.abs(v-mm)<Math.abs(arr[best]-mm))best=i;});return {index:best,width:arr[best],diff:Math.abs(arr[best]-mm)};}
  document.querySelectorAll("[data-finder-type]").forEach(btn=>btn.addEventListener("click",()=>{
-  type=btn.dataset.finderType;
-  document.querySelectorAll("[data-finder-type]").forEach(x=>x.classList.toggle("selected",x===btn));
-  if(type==="toes"){shape="Toes";step("finderMeasureStep");$("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät tån från sida till sida vid bredaste punkten";$("finderHint").textContent="Tåguiden använder samma storleksserie för alla tådesigner.";}
-  else{step("finderShapeStep");$("finderShapeLabel").textContent="VÄLJ FORM PÅ DINA NAGLAR";}
- }));
- document.querySelectorAll("[data-finder-shape]").forEach(btn=>btn.addEventListener("click",()=>{
-  shape=btn.dataset.finderShape;
-  document.querySelectorAll("[data-finder-shape]").forEach(x=>x.classList.toggle("selected",x===btn));
-  $("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät din naturliga nagel från sida till sida vid bredaste punkten";
-  $("finderHint").textContent="Använd samma form som du tänker beställa.";
+  type=btn.dataset.finderType;document.querySelectorAll("[data-finder-type]").forEach(x=>x.classList.toggle("selected",x===btn));
+  $("finderFingerGrid").hidden=type==="toes";$("finderToeMeasure").hidden=type!=="toes";
+  if(type==="toes"){shape="Toes";$("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät tåtippen vid den bredaste punkten";$("finderHint").textContent="Skriv in bredden i millimeter för att få närmaste tåstorlek.";}
+  else{step("finderShapeStep");$("finderShapeLabel").textContent="VÄLJ FORM PÅ DINA NAGLAR";return;}
   step("finderMeasureStep");
  }));
+ document.querySelectorAll("[data-finder-shape]").forEach(btn=>btn.addEventListener("click",()=>{shape=btn.dataset.finderShape;document.querySelectorAll("[data-finder-shape]").forEach(x=>x.classList.toggle("selected",x===btn));$("finderMeasureStep").querySelector(".finder-measure-label").textContent="Börja med lillfingret och fortsätt mot tummen";$("finderHint").textContent="Fyll i alla fem mått för att få en samlad storlekslista.";step("finderMeasureStep");}));
  $("finderCalculate").addEventListener("click",()=>{
-  const measure=parseFloat(String($("finderMeasure").value).replace(",",".")),arr=widths[shape];
-  if(!Number.isFinite(measure)||measure<7||measure>25){$("finderHint").textContent="Skriv ett mått mellan 7 och 25 mm.";return;}
-  let best=0;arr.forEach((v,i)=>{if(Math.abs(v-measure)<Math.abs(arr[best]-measure))best=i;});
-  const size=shape==="Toes"?(best===0?"00":String(best-1)):String(best).padStart(2,"0");
-  const diff=Math.abs(arr[best]-measure);
-  $("finderResult").innerHTML=`<span class="finder-label">DIN REKOMMENDATION</span><strong>Storlek ${size}</strong><p>Närmast ditt mått: ${String(arr[best]).replace(".",",")} mm · ${shape==="Toes"?"Tår":"Form: "+shape}</p><small>${diff>0.75?"Du ligger mellan mått – välj gärna den större storleken eller prova vårt Size Kit.":"Det här är närmaste måttet i vår storlekstabell. Mät gärna en extra gång för säkerhets skull."}</small>`;
-  $("finderResult").hidden=false;$("finderHint").textContent="Klart! Du kan börja om om du vill jämföra en annan form.";
+  const arr=widths[shape]; let results=[];
+  if(type==="toes"){
+   const mm=parseFloat(String($("finderToeInput").value).replace(",","."));
+   if(!Number.isFinite(mm)||mm<7||mm>25){$("finderHint").textContent="Skriv ett mått mellan 7 och 25 mm.";return;}
+   const r=closest(mm,arr); const size=r.index===0?"00":String(r.index-1);
+   results=[{finger:"Tå",mm,size,width:r.width,diff:r.diff}];
+  } else {
+   const inputs=[...document.querySelectorAll(".finder-finger-measure")];
+   const values=inputs.map(i=>parseFloat(String(i.value).replace(",",".")));
+   const missing=values.findIndex(v=>!Number.isFinite(v)||v<7||v>25);
+   if(missing!==-1){$("finderHint").textContent="Fyll i ett giltigt mått (7–25 mm) för "+fingers[missing].toLowerCase()+".";inputs[missing].focus();return;}
+   results=values.map((mm,i)=>{const r=closest(mm,arr);return {finger:fingers[i],mm,size:String(r.index).padStart(2,"0"),width:r.width,diff:r.diff};});
+  }
+  const rows=results.map(r=>`<div class="finder-result-row"><span><b>${r.finger}</b><small>${String(r.mm).replace(".",",")} mm uppmätt · närmast ${String(r.width).replace(".",",")} mm</small></span><strong>${r.size}</strong></div>`).join("");
+  $("finderResult").innerHTML=`<span class="finder-label">DIN STORLEKSKOMBINATION · ${shape}</span><div class="finder-result-list">${rows}</div><p class="finder-result-advice">Spara listan eller ta en skärmbild innan du går vidare till beställningen. Storlekarna är rekommendationer utifrån dina mått.</p>`;
+  $("finderResult").hidden=false;$("finderHint").textContent="Klart! Alla dina mått är omräknade till storlekar.";
  });
- $("finderReset").addEventListener("click",()=>{
-  type="";shape="";$("finderMeasure").value="";document.querySelectorAll(".finder-choice").forEach(x=>x.classList.remove("selected"));step("finderTypeStep");$("finderHint").textContent="Mät rakt över nageln, från sida till sida.";
- });
+ $("finderReset").addEventListener("click",()=>{type="";shape="";document.querySelectorAll(".finder-choice").forEach(x=>x.classList.remove("selected"));document.querySelectorAll(".finder-finger-measure").forEach(x=>x.value="");$("finderToeInput").value="";$("finderFingerGrid").hidden=false;$("finderToeMeasure").hidden=true;step("finderTypeStep");$("finderHint").textContent="Välj naglar eller tår för att börja.";});
 })();
-
 
 /* Contact form: send directly through the same FormSubmit AJAX endpoint as orders. */
 (function(){
@@ -3303,39 +3301,24 @@ document.addEventListener("click", function(event) {
  });
 })();
 
-/* Scroll-linked ritual chapter indicator */
+/* Scroll-linked ritual guide: original vector illustrations, no product photos */
 (function(){
- const steps=[...document.querySelectorAll(".ritual-step")];
- const core=document.getElementById("ritualVisualCore");
+ const steps=[...document.querySelectorAll(".ritual-step")],core=document.getElementById("ritualVisualCore");
  if(!steps.length||!core)return;
- const number=document.getElementById("ritualVisualNumber");
- const symbol=document.getElementById("ritualVisualSymbol");
- const caption=document.getElementById("ritualVisualCaption");
- const count=document.getElementById("ritualVisualCount");
- let photo=core.querySelector(".ritual-visual-photo");
- if(!photo){photo=document.createElement("img");photo.className="ritual-visual-photo";photo.alt="Detalj från PressN’Pop-kitet";photo.setAttribute("aria-hidden","true");core.prepend(photo);}
- let progress=document.querySelector(".ritual-progress span");
- if(!progress){const track=document.createElement("div");track.className="ritual-progress";track.setAttribute("aria-hidden","true");track.innerHTML="<span></span>";core.parentElement.appendChild(track);progress=track.querySelector("span");}
- function activate(step){
-  steps.forEach(s=>s.classList.toggle("is-active",s===step));
-  core.classList.add("is-changing");
-  const n=step.dataset.step;
-  number.textContent=n;
-  symbol.textContent=step.dataset.symbol||"✳";
-  caption.textContent=step.dataset.caption||"PRESSN’POP";
-  count.textContent=n+" / 06";
-  const image=step.dataset.image;
-  if(image&&photo.getAttribute("src")!==image){photo.classList.remove("is-visible");photo.onload=()=>photo.classList.add("is-visible");photo.onerror=()=>photo.classList.remove("is-visible");photo.src=image;if(photo.complete&&photo.naturalWidth)photo.classList.add("is-visible");}
-  if(progress)progress.style.width=(Number(n)/steps.length*100)+"%";
-  window.setTimeout(()=>core.classList.remove("is-changing"),180);
- }
- if("IntersectionObserver" in window){
-  const observer=new IntersectionObserver(entries=>{
-   const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
-   if(visible[0])activate(visible[0].target);
-  },{root:null,rootMargin:"-28% 0px -28% 0px",threshold:[0,.15,.35,.6]});
-  steps.forEach(s=>observer.observe(s));
- }else{
-  window.addEventListener("scroll",()=>{let best=steps[0],dist=Infinity;steps.forEach(s=>{const d=Math.abs(s.getBoundingClientRect().top-innerHeight*.45);if(d<dist){dist=d;best=s;}});activate(best);},{passive:true});
- }
+ const number=document.getElementById("ritualVisualNumber"),caption=document.getElementById("ritualVisualCaption"),count=document.getElementById("ritualVisualCount"),art=document.getElementById("ritualIllustration");
+ const drawings={
+  "01":`<svg viewBox="0 0 360 360" role="img" aria-label="Illustration av en nagelbandsputtare"><path d="M83 258 Q180 230 277 258"/><path d="M112 242 L236 91 Q246 78 259 90 L267 98 Q277 110 265 122 L139 260"/><path d="M236 91 L265 122"/><path d="M105 263 Q180 284 255 263"/><path d="M90 291 Q180 313 270 291"/></svg>`,
+  "02":`<svg viewBox="0 0 360 360" role="img" aria-label="Illustration av en nagelfil"><rect x="74" y="132" width="212" height="86" rx="43" transform="rotate(-24 180 175)"/><path d="M111 224 L251 162 M120 240 L260 178 M103 207 L243 145 M132 255 L272 193"/><path d="M99 146 Q180 108 261 146"/></svg>`,
+  "03":`<svg viewBox="0 0 360 360" role="img" aria-label="Illustration av en alkoholpad"><rect x="98" y="74" width="164" height="212" rx="18"/><path d="M121 111 H239 M121 132 H218"/><path d="M145 182 Q180 150 215 182 Q180 216 145 182Z"/><path d="M180 158 V205 M155 182 H205"/><path d="M121 239 H239"/></svg>`,
+  "04":`<svg viewBox="0 0 360 360" role="img" aria-label="Illustration av glue tabs och nagellim"><path d="M91 114 Q91 92 113 92 H171 Q193 92 193 114 V255 Q193 277 171 277 H113 Q91 277 91 255Z"/><path d="M111 92 V70 H173 V92 M111 139 H173"/><rect x="214" y="128" width="55" height="132" rx="13"/><path d="M221 128 V101 H262 V128 M229 101 V82 H254 V101"/><path d="M241 260 Q241 285 258 293"/></svg>`,
+  "05":`<svg viewBox="0 0 360 360" role="img" aria-label="Illustration av press-on naglar som får sätta sig"><path d="M102 240 Q102 151 180 151 Q258 151 258 240 Q258 270 230 270 H130 Q102 270 102 240Z"/><path d="M145 150 V110 Q145 82 180 82 Q215 82 215 110 V150"/><path d="M180 55 V34 M130 75 L116 59 M230 75 L244 59"/><path d="M150 211 Q180 192 210 211"/></svg>`,
+  "06":`<svg viewBox="0 0 360 360" role="img" aria-label="Illustration av en förvaringsask med press-on naglar"><rect x="75" y="116" width="210" height="152" rx="18"/><path d="M75 157 H285 M103 116 V96 Q103 82 119 82 H241 Q257 82 257 96 V116"/><path d="M122 195 Q122 174 140 174 Q158 174 158 195 V225 H122Z M169 195 Q169 174 187 174 Q205 174 205 195 V225 H169Z M216 195 Q216 174 234 174 Q252 174 252 195 V225 H216Z"/></svg>`
+ };
+ let active="";
+ function activate(step){const n=step.dataset.step;if(active===n)return;active=n;steps.forEach(s=>s.classList.toggle("is-active",s===step));core.classList.remove("is-changing");void core.offsetWidth;core.classList.add("is-changing");number.textContent=n;caption.textContent=step.dataset.caption||"PRESSN’POP";count.textContent=n+" / 06";art.innerHTML=drawings[n]||drawings["01"];const bar=document.querySelector(".ritual-progress span");if(bar)bar.style.width=(Number(n)/steps.length*100)+"%";window.setTimeout(()=>core.classList.remove("is-changing"),450);}
+ let ticking=false;
+ function update(){const target=window.innerHeight*.48;let best=steps[0],distance=Infinity;steps.forEach(s=>{const r=s.getBoundingClientRect();const center=r.top+Math.min(r.height,window.innerHeight)*.45;const d=Math.abs(center-target);if(d<distance){distance=d;best=s;}});activate(best);ticking=false;}
+ function onScroll(){if(!ticking){window.requestAnimationFrame(update);ticking=true;}}
+ window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",onScroll);update();
 })();
+

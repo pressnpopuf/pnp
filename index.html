@@ -414,10 +414,19 @@
     </div>
   </div>
   <div class="finder-step" id="finderMeasureStep" hidden>
-    <span class="finder-label">DITT MÅTT I MILLIMETER</span>
-    <label class="finder-measure-label" for="finderMeasure">Mät den naturliga nageln vid bredaste punkten</label>
-    <div class="finder-input-row"><input id="finderMeasure" type="number" min="5" max="30" step="0.5" placeholder="t.ex. 13,5"><span>mm</span><button type="button" id="finderCalculate">Hitta storlek ↗</button></div>
-    <p class="finder-hint" id="finderHint">Mät rakt över nageln, från sida till sida.</p>
+    <span class="finder-label">STEG 3 · MÄT VARJE NAGEL</span>
+    <label class="finder-measure-label" for="finderMeasure0">Börja med lillfingret och fortsätt mot tummen</label>
+    <p class="finder-measure-help">Mät varje nagel rakt över den bredaste delen. Skriv in måttet i millimeter – en ruta per finger.</p>
+    <div class="finder-finger-grid" id="finderFingerGrid">
+      <label><span>01 · Lillfinger</span><div><input class="finder-finger-measure" id="finderMeasure0" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+      <label><span>02 · Ringfinger</span><div><input class="finder-finger-measure" id="finderMeasure1" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+      <label><span>03 · Långfinger</span><div><input class="finder-finger-measure" id="finderMeasure2" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+      <label><span>04 · Pekfinger</span><div><input class="finder-finger-measure" id="finderMeasure3" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+      <label><span>05 · Tumme</span><div><input class="finder-finger-measure" id="finderMeasure4" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+    </div>
+    <div class="finder-toe-measure" id="finderToeMeasure" hidden><label for="finderToeInput">Mått för tån</label><div><input id="finderToeInput" type="number" min="5" max="25" step="0.5" placeholder="t.ex. 18"><small>mm</small></div></div>
+    <p class="finder-hint" id="finderHint">Fyll i alla fem mått för att se din storlekskombination.</p>
+    <button type="button" id="finderCalculate" class="finder-show-results">Visa mina storlekar ↗</button>
     <div class="finder-result" id="finderResult" hidden aria-live="polite"></div>
     <button type="button" class="finder-reset" id="finderReset">Börja om</button>
   </div>
@@ -512,7 +521,7 @@
         <div class="ritual-visual-orbit"></div>
         <div class="ritual-visual-core" id="ritualVisualCore">
           <span class="ritual-visual-number" id="ritualVisualNumber">01</span>
-          <span class="ritual-visual-symbol" id="ritualVisualSymbol">✳</span>
+          <div class="ritual-illustration" id="ritualIllustration" aria-hidden="true"></div>
           <span class="ritual-visual-caption" id="ritualVisualCaption">PREP YOUR NAILS</span>
         </div>
         <div class="ritual-visual-meta"><span>PRESSN’POP</span><span id="ritualVisualCount">01 / 06</span></div>
@@ -520,7 +529,7 @@
     </div>
 
     <div class="ritual-steps" id="ritualSteps">
-      <article class="ritual-step is-active" data-step="01" data-image="bilder/vanillavibe1.jpg" data-symbol="✳" data-caption="PREP YOUR NAILS">
+      <article class="ritual-step is-active" data-step="01" data-symbol="✳" data-caption="PREP YOUR NAILS">
         <div class="ritual-step-top"><span>01 / INCLUDED</span><span>PREP</span></div>
         <h3>Nagelbands-<br>puttare</h3>
         <p class="ritual-item-note">I asken: nagelbandsputtare</p>
@@ -528,7 +537,7 @@
         <div class="ritual-tip"><b>GÖR SÅ HÄR</b><span>Arbeta varsamt – tryck inte hårt mot nagelbanden.</span></div>
       </article>
 
-      <article class="ritual-step" data-step="02" data-image="bilder/pearlpress1.jpg" data-symbol="⌁" data-caption="SHAPE & BUFF">
+      <article class="ritual-step" data-step="02" data-symbol="⌁" data-caption="SHAPE & BUFF">
         <div class="ritual-step-top"><span>02 / INCLUDED</span><span>PREP</span></div>
         <h3>Nagelfil</h3>
         <p class="ritual-item-note">I asken: nagelfil</p>
@@ -536,7 +545,7 @@
         <div class="ritual-tip"><b>GÖR SÅ HÄR</b><span>Fila lätt – du ska inte tunna ut eller skada din naturliga nagel.</span></div>
       </article>
 
-      <article class="ritual-step" data-step="03" data-image="bilder/sizekit.jpeg" data-symbol="✧" data-caption="CLEAN THE CANVAS">
+      <article class="ritual-step" data-step="03" data-symbol="✧" data-caption="CLEAN THE CANVAS">
         <div class="ritual-step-top"><span>03 / INCLUDED</span><span>CLEAN</span></div>
         <h3>Alkoholpad</h3>
         <p class="ritual-item-note">I asken: alkoholpad</p>
@@ -544,7 +553,7 @@
         <div class="ritual-tip"><b>GÖR SÅ HÄR</b><span>Se till att naglarna är rena och torra innan applicering.</span></div>
       </article>
 
-      <article class="ritual-step" data-step="04" data-image="bilder/bubblebliss1.jpg" data-symbol="＋" data-caption="CHOOSE YOUR HOLD">
+      <article class="ritual-step" data-step="04" data-symbol="＋" data-caption="CHOOSE YOUR HOLD">
         <div class="ritual-step-top"><span>04 / INCLUDED</span><span>APPLY</span></div>
         <h3>Glue tabs<br>& nagellim</h3>
         <p class="ritual-item-note">I asken: självhäftande glue tabs och nagellim</p>
@@ -552,7 +561,7 @@
         <div class="ritual-tip"><b>GÖR SÅ HÄR</b><span>Följ instruktionerna som följer med setet och pressa nageln på plats.</span></div>
       </article>
 
-      <article class="ritual-step" data-step="05" data-image="bilder/sugerswirl1.jpg" data-symbol="♡" data-caption="CARE FOR YOUR SET">
+      <article class="ritual-step" data-step="05" data-symbol="♡" data-caption="CARE FOR YOUR SET">
         <div class="ritual-step-top"><span>05 / HOW TO</span><span>AFTERCARE</span></div>
         <h3>Låt dem<br>sätta sig.</h3>
         <p class="ritual-item-note">Efter applicering</p>
@@ -560,7 +569,7 @@
         <div class="ritual-tip"><b>TA HAND OM DEM</b><span>Använd inte naglarna som verktyg och var försiktig med starka kemikalier.</span></div>
       </article>
 
-      <article class="ritual-step" data-step="06" data-image="bilder/fransktar1.jpeg" data-symbol="↻" data-caption="REMOVE & REUSE">
+      <article class="ritual-step" data-step="06" data-symbol="↻" data-caption="REMOVE & REUSE">
         <div class="ritual-step-top"><span>06 / HOW TO</span><span>REUSE</span></div>
         <h3>Ta av.<br>Spara. Återanvänd.</h3>
         <p class="ritual-item-note">När du vill byta look</p>
@@ -765,31 +774,31 @@
         <details class="faq-item">
             <summary>Vad ingår i ett set och hur applicerar jag naglarna?</summary>
             <div class="faq-answer">
-                I ett set ingår nagelbandsputtare, alkoholpad, glue tabs, nagellim, nagelfil och instruktioner för applicering och skötsel. Börja med rena och torra naglar, skjut försiktigt tillbaka nagelbanden och matta vid behov den naturliga nagelytan lätt. Välj glue tabs eller nagellim enligt instruktionerna som följer med. Undvik vatten direkt efter applicering och bänd eller ryck inte loss naglarna när du tar av dem.
+                I ett set ingår nagelbandsputtare, nagelfil, alkoholpad, självhäftande glue tabs och nagellim. Så här gör du: 1) Tvätta händerna och torka dem helt. 2) Skjut försiktigt tillbaka nagelbanden med nagelbandsputtaren. 3) Matta den naturliga nagelytan mycket lätt med filen – fila inte hårt eller tunt. 4) Torka nageln med alkoholpaden och låt den lufttorka helt. 5) Välj antingen glue tabs eller nagellim. Med glue tabs: välj en storlek som täcker nageln utan att hamna på huden, fäst den och tryck fast. Med nagellim: applicera ett tunt lager enligt limmets anvisningar. 6) Placera press-on nageln nära nagelbandet utan att nudda huden, vinkla nedåt och tryck stadigt i cirka 20–30 sekunder. Undvik vatten direkt efter applicering. Avbryt om du får irritation eller obehag.
             </div>
         </details>
         <details class="faq-item">
             <summary>Hur väljer jag rätt storlek för fingrar och tår?</summary>
             <div class="faq-answer">
-                Mät varje naturlig nagel från sida till sida vid den bredaste punkten och jämför millimetermåttet med storleksguiden för den form du vill beställa. Mät varje finger separat eftersom storlekarna kan skilja sig åt. För tår använder du tåguiden. Är du osäker kan du beställa vårt Size Kit för 59 kr, där du kan prova storlekarna 0–11 i vald form. Size Kit har fri frakt.
+                Mät varje nagel separat, rakt från sida till sida där den är som bredast. Börja med lillfingret, fortsätt med ringfinger, långfinger och pekfinger och avsluta med tummen. Skriv in de fem måtten i storleksguiden och tryck på ”Visa mina storlekar” så får du en samlad lista med rekommenderad storlek för varje finger. Välj den form du tänker beställa eftersom måtten skiljer sig mellan formerna. För tår mäter du tåtippen vid dess bredaste punkt och jämför med tåtabellen. Är du osäker kan du beställa vårt Size Kit för 59 kr. Det innehåller tippar i flera storlekar så att du kan prova passformen; fri frakt gäller för Size Kit.
             </div>
         </details>
         <details class="faq-item">
             <summary>Hur lång tid tar frakten och när får jag min beställning?</summary>
             <div class="faq-answer">
-                Alla set görs för hand, så tillverkningstiden kan variera beroende på design och hur många beställningar vi har. I kassan ser du fraktkostnaden innan du skickar beställningen. Du kan välja frakt eller upphämtning om det alternativet visas. Vi kontaktar dig om det behövs mer information kring din beställning eller leverans.
+                Eftersom varje set görs för hand varierar tillverkningstiden beroende på design och aktuell arbetsbelastning. Den fraktmetod och fraktkostnad som gäller visas i kassan innan du skickar beställningen. Om upphämtning erbjuds visas även det alternativet där. Kontrollera dina kontaktuppgifter så att vi kan nå dig om vi behöver stämma av något. Om en särskild leveranstid är viktig, skriv det i beställningens meddelandefält så återkommer vi om vad som är möjligt.
             </div>
         </details>
         <details class="faq-item">
             <summary>Kan jag ändra beställningen och hur länge håller naglarna?</summary>
             <div class="faq-answer">
-                Kontakta oss så snart som möjligt på pressnpop.uf@gmail.com om du behöver ändra något. När tillverkningen har börjat kan vi inte alltid ändra beställningen. Våra press-on gelénaglar kan återanvändas om du tar av dem försiktigt, rengör dem och förvarar dem säkert. Hur länge de sitter beror bland annat på förberedelser, fästmetod och hur du sköter dem. Undvik att använda naglarna som verktyg och var försiktig med starka kemikalier.
+                Mejla pressnpop.uf@gmail.com så snart som möjligt och ange orderuppgifterna samt vad du vill ändra. Vi kan inte lova ändringar när tillverkningen har påbörjats. Hur länge naglarna sitter beror på hur noggrant du förbereder naglarna, vilket fäste du väljer och hur du använder händerna. Glue tabs passar ofta för kortare användning och enklare borttagning, medan nagellim vanligtvis ger ett starkare fäste. Naglarna kan återanvändas om de tas av varsamt, rengörs och inte skadas.
             </div>
         </details>
         <details class="faq-item">
             <summary>Hur kan jag förlänga livslängden på mina press-on naglar?</summary>
             <div class="faq-answer">
-                Ta av naglarna försiktigt, rengör bort limrester och förvara dem i asken när du inte använder dem. Om en nagel försvinner eller skadas kan du beställa en ersättningsnagel under Enstaka Nagel. Du kan också fräscha upp naglarna själv hemma eller låta oss göra det genom vår Refresh-tjänst. Om naglarna har blivit slitna eller om du har tröttnat på designen kan du välja Refresh Redesign, där vi fräschar upp naglarna och du får välja en ny design från vår kollektion.
+                Lossa dem långsamt och varsamt – dra eller bänd inte. Ta bort eventuella limrester utan att skrapa sönder tippen, rengör dem och låt dem torka helt innan du lägger tillbaka dem i asken. Undvik att böja eller klämma naglarna. Om en nagel saknas eller skadas kan du se tjänsten Enstaka Nagel. Refresh kan användas för att fräscha upp ett tidigare set, och med Refresh Redesign kan du välja en ny design från kollektionen.
             </div>
         </details>
         <details class="faq-item">
@@ -802,7 +811,7 @@
         </details>
         <details class="faq-item">
             <summary>Kan jag duscha eller bada med press-on naglar?</summary>
-            <div class="faq-answer">För bästa hållbarhet bör du undvika vatten direkt efter applicering. Långvarig kontakt med varmt vatten kan påverka fästet, så var försiktig vid dusch, bad och disk.</div>
+            <div class="faq-answer">Undvik helst vatten de första timmarna efter applicering så att fästet får sätta sig. Därefter går det bra att duscha och tvätta händerna, men långvarig kontakt med varmt vatten, bad och disk kan förkorta hållbarheten. Torka händerna ordentligt efteråt och använd inte naglarna för att öppna eller skrapa saker.</div>
         </details>
         <details class="faq-item">
             <summary>Vad gör jag om jag inte vet vilken storlek jag ska välja?</summary>

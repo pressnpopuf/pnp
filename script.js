@@ -3354,3 +3354,87 @@ document.addEventListener("click", function(event) {
   choices.forEach(item=>{const btn=document.createElement("button");btn.type="button";btn.className="length-result-choice";btn.innerHTML=`<strong>${item.name}</strong><span>${item.mm} mm</span><small>Välj denna längd</small>`;btn.addEventListener("click",()=>{results.querySelectorAll("button").forEach(x=>x.classList.remove("selected"));btn.classList.add("selected");hint.textContent=`Du har valt ${item.name} (${item.mm} mm).`;});results.appendChild(btn);});
  });
 })();
+
+
+/* Functional length finder: compare the thumb measurement with the site's length options. */
+(function(){
+ const input=document.getElementById('lengthMeasureInput');
+ const button=document.getElementById('lengthMeasureButton');
+ const hint=document.getElementById('lengthMeasureHint');
+ const results=document.getElementById('lengthMeasureResults');
+ if(!input||!button||!hint||!results)return;
+ const options=[{name:'XX Short',mm:17},{name:'X Short',mm:20},{name:'Short',mm:23},{name:'Medium',mm:25}];
+ const toeOptions=[{name:'16 mm',mm:16},{name:'18 mm',mm:18},{name:'20 mm',mm:20}];
+ function calculate(){
+  const mm=Number(String(input.value).replace(',','.'));
+  results.innerHTML='';
+  if(!input.value.trim()||!Number.isFinite(mm)||mm<10||mm>40){
+   hint.textContent='Skriv ett mått mellan 10 och 40 mm för att få en rekommendation.';
+   return;
+  }
+  const available=options;
+  const ordered=[...available].sort((a,b)=>a.mm-b.mm);
+  let picks=[];
+  if(mm<=ordered[0].mm)picks=[ordered[0]];
+  else if(mm>=ordered[ordered.length-1].mm)picks=[ordered[ordered.length-1]];
+  else{
+   for(let i=0;i<ordered.length-1;i++){
+    if(mm>=ordered[i].mm&&mm<=ordered[i+1].mm){
+     const lower=ordered[i],upper=ordered[i+1];
+     if(mm===lower.mm)picks=[lower];
+     else if(mm===upper.mm)picks=[upper];
+     else picks=[lower,upper];
+     break;
+    }
+   }
+  }
+  const closest=picks.length===1?picks[0]:picks.reduce((best,item)=>Math.abs(item.mm-mm)<Math.abs(best.mm-mm)?item:best);
+  hint.textContent=picks.length===1
+   ? `Ditt mått är ${mm} mm. Vi rekommenderar ${closest.name} (${closest.mm} mm).`
+   : `Ditt mått är ${mm} mm och ligger mellan två längder. Välj den du föredrar:`;
+  picks.forEach(item=>{
+   const el=document.createElement('button');el.type='button';el.className='length-result-choice';
+   el.setAttribute('aria-pressed','false');
+   el.innerHTML=`<strong>${item.name}</strong><small>${item.mm} mm</small>`;
+   el.addEventListener('click',()=>{
+    results.querySelectorAll('.length-result-choice').forEach(option=>{option.classList.remove('selected');option.setAttribute('aria-pressed','false');});
+    el.classList.add('selected');el.setAttribute('aria-pressed','true');
+    hint.textContent=`Du har valt ${item.name} (${item.mm} mm).`;
+   });
+   results.appendChild(el);
+  });
+ }
+ button.addEventListener('click',calculate);
+ input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();calculate();}});
+ input.addEventListener('input',()=>{results.innerHTML='';hint.textContent='Tryck på ”Hitta min längd” för att se din rekommendation.';});
+})();
+
+/* English copy for the newly visible size and length finder controls. */
+(function(){
+ const copy={
+  'HITTA DIN STORLEK':'FIND YOUR SIZE',
+  'Välj vad du vill hitta storlek för.':'Choose what you want to find a size for.',
+  'Hitta din längd':'Find your length',
+  'LÄNGDGUIDE':'LENGTH GUIDE',
+  'Mät från nagelbandet på tummen rakt ut till den nageltipp du önskar. Skriv in måttet i millimeter så föreslår vi den längd som passar bäst.':'Measure from the thumb cuticle to the tip length you want. Enter the measurement in millimetres and we will suggest the closest length.',
+  'Ditt mått från nagelband till önskad tipp':'Your measurement from cuticle to desired tip',
+  'Skriv mm, t.ex. 22':'Enter mm, e.g. 22',
+  'Hitta min längd':'Find my length',
+  'Ange ditt mått så rekommenderar vi en längd.':'Enter your measurement and we will recommend a length.',
+  'Våra nagellängder':'Our nail lengths',
+  'För tår:':'For toes:'
+ };
+ const originals=new Map();
+ function apply(){
+  const en=document.documentElement.lang==='en';
+  document.querySelectorAll('.finder-main-label,.finder-select-intro,.length-guide-heading h3,.length-guide-kicker,.length-guide-heading-copy p,.length-measure-entry label,.length-measure-entry button,.length-measure-hint,.toe-length-note strong').forEach(el=>{
+   if(!originals.has(el))originals.set(el,el.textContent);
+   const sv=originals.get(el);el.textContent=en?(copy[sv]||sv):sv;
+  });
+  const input=document.getElementById('lengthMeasureInput');
+  if(input)input.placeholder=en?'Enter mm, e.g. 22':'Skriv mm, t.ex. 22';
+ }
+ document.querySelectorAll('.language-option').forEach(b=>b.addEventListener('click',()=>setTimeout(apply,0)));
+ const observer=new MutationObserver(apply);observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+ apply();
+})();

@@ -3888,3 +3888,71 @@ section[style*="background:#1"],section[style*="background: #1"] h2,
 .length-result-choice.selected{background:#4b403b;color:#fff;border-color:#4b403b}.length-result-choice small{display:block;margin-top:4px;font-size:11px}
 .length-guide-option{background:#fff!important;border:1px solid #e5d9d0!important;color:#423831!important}.length-guide-option strong{color:#423831!important}
 @media(max-width:700px){.hero-logo{width:260px;height:260px;flex-basis:260px;margin:28px auto 0}.hero-logo::before{width:234px;height:234px}.logo-text{width:132px;height:48px;font-size:18px!important}.length-measure-entry button{width:100%}}
+
+
+/* PressN'Pop – sammanhållen produktvy och tydliga val */
+:root{--pnp-ink:#302722;--pnp-paper:#fbf8f4;--pnp-sand:#e7ddd4;--pnp-accent:#9a806f}
+.hero-logo:before,.hero-logo:after{display:none!important;content:none!important}
+.hero-logo{background:transparent!important;border:0!important;box-shadow:none!important;display:flex!important;align-items:center!important;justify-content:center!important;margin-left:auto!important}
+.hero-logo img{width:100%!important;height:100%!important;object-fit:contain!important;filter:drop-shadow(0 8px 16px rgba(48,39,34,.13));transform:scale(1.08)}
+.hero{align-items:center!important}
+.pnp-nav .logo-text,.logo-text{font-family:"Dancing Script",cursive!important;font-weight:600!important;letter-spacing:0!important;font-size:clamp(30px,3.2vw,42px)!important;line-height:1!important;width:auto!important;height:auto!important;white-space:nowrap}
+.logo-mark{font-family:"Dancing Script",cursive!important}
+.finder-main-label{display:block!important;color:#302722!important;font-family:"Unbounded",sans-serif!important;font-size:clamp(13px,1.4vw,16px)!important;font-weight:600!important;letter-spacing:.045em!important;margin-bottom:13px!important;opacity:1!important}
+.finder-select-intro{font-size:15px!important;line-height:1.55!important;color:#51443d!important;margin:0 0 14px!important}
+.finder-choice-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+.finder-choice{min-height:108px!important;padding:18px!important;background:#f3ede7!important;border:1px solid #d9cbc0!important;color:#302722!important;border-radius:14px!important;opacity:1!important}
+.finder-choice b,.finder-choice small,.finder-choice-icon{color:#302722!important;opacity:1!important;visibility:visible!important}
+.finder-choice b{font-family:"Unbounded",sans-serif!important;font-size:15px!important;font-weight:600!important}
+.finder-choice small{font-size:13px!important;margin-top:6px!important}
+.finder-choice.selected{background:#e6d9cf!important;border-color:#8f7666!important;box-shadow:0 0 0 2px rgba(143,118,102,.13)!important}
+.finder-label{font-family:"Unbounded",sans-serif!important;font-size:12px!important;color:#302722!important}
+.length-guide-kicker{display:block;font-family:"Unbounded",sans-serif;font-size:10px;letter-spacing:.16em;color:#9a806f;margin-bottom:7px}
+.length-guide-heading h3{font-family:"Unbounded",sans-serif!important;font-size:clamp(17px,2vw,21px)!important;letter-spacing:-.02em!important;color:#302722!important}
+.length-guide-options{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.length-guide-option{background:#fff!important;border:1px solid #e1d6ce!important;border-radius:12px!important;padding:14px 10px!important;text-align:center}
+.length-guide-option span,.length-guide-option strong{display:block;color:#302722!important}
+.length-guide-option span{font-size:13px!important;margin-bottom:5px}
+.length-guide-option strong{font-family:"Unbounded",sans-serif!important;font-size:14px!important}
+.length-measure-entry{flex-wrap:wrap}
+.length-measure-entry input{min-width:0;flex:1}
+.length-measure-entry button{background:#4b403b!important;color:#fff!important;border:0!important;border-radius:9px!important;padding:12px 17px!important}
+.length-measure-results{margin-top:12px}
+.length-result-choice{display:inline-flex;flex-direction:column;gap:4px;background:#f1e8e2;border:1px solid #b9a396;border-radius:12px;padding:12px 16px;margin:6px 8px 0 0;color:#302722}
+.length-result-choice strong{font-family:"Unbounded",sans-serif;font-size:14px}
+.length-result-choice small{font-size:12px}
+.product-modal-box,.product-detail-content{background:#fbf8f4!important;color:#302722!important}
+.product-detail-content h2,.product-detail-content h3,.product-detail-content label,.product-detail-content .product-label,
+.product-detail-content .option-label,.product-detail-content .field-label,.product-detail-content legend,
+.product-detail-content .product-choice,.product-detail-content .choice-button,
+.product-detail-content .product-size-grid label,.product-detail-content .product-material-note strong{
+ font-family:"Unbounded",sans-serif!important;font-weight:500!important;letter-spacing:-.025em!important
+}
+.product-detail-content h2{font-size:clamp(22px,2.5vw,29px)!important;line-height:1.2!important}
+.product-detail-content h3{font-size:16px!important;line-height:1.3!important}
+.product-detail-content label,.product-detail-content .product-label,.product-detail-content .option-label,
+.product-detail-content .field-label,.product-detail-content legend{font-size:11px!important;letter-spacing:.035em!important}
+.product-detail-content .product-choice,.product-detail-content .choice-button{font-size:12px!important;padding:11px!important}
+.product-detail-content p,.product-material-note,.product-description{font-size:14px!important;line-height:1.65!important}
+.product-choice,.choice-button{background:#f1e8e2!important;border-color:#dfd1c7!important;color:#302722!important}
+.product-choice.selected,.choice-button.selected{background:#e4d5ca!important;border-color:#8f7666!important}
+#productTitle{font-family:"Unbounded",sans-serif!important;font-size:clamp(22px,2.5vw,29px)!important}
+@media(max-width:640px){
+ .hero-logo{width:min(42vw,190px)!important;height:min(42vw,190px)!important}
+ .hero-logo img{transform:scale(1.12)}
+ .finder-choice-row{grid-template-columns:1fr 1fr!important}
+ .length-guide-options{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .length-measure-entry{display:grid!important;grid-template-columns:1fr auto}
+ .length-measure-entry button{grid-column:1/-1;width:100%!important}
+ .product-detail-content h2{font-size:22px!important}
+}
+
+/* Typographic consistency in collection and More from PressN'Pop cards */
+.extra-grid .nagel-info h3,.extra-card .nagel-info h3,.design-section .nagel-info h3{
+ font-family:"Unbounded",sans-serif!important;font-size:15px!important;font-weight:500!important;letter-spacing:-.025em!important;line-height:1.3!important
+}
+.extra-grid .nagel-info p,.extra-card .nagel-info p{font-size:13px!important;line-height:1.6!important}
+.extra-grid .nagel-info .knapp,.extra-card .nagel-info .knapp{font-size:12px!important;padding:10px 14px!important}
+
+.length-result-choice{cursor:pointer;font:inherit;text-align:left}
+.length-result-choice.selected{background:#dfd0c5;border-color:#8f7666;box-shadow:0 0 0 2px rgba(143,118,102,.15)}

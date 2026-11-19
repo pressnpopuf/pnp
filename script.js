@@ -3214,3 +3214,68 @@ document.addEventListener("click", function(event) {
     if (typeof closeSiteDetailMenu === "function") closeSiteDetailMenu();
   }
 });
+
+
+/* PRESSN'POP — guided size finder */
+(function(){
+ const widths={
+  "Square":[17,16,15,14,13,12,12,11,11,10,9,8],
+  "Coffin":[16.5,16,15,14.5,14,12.5,12,11.5,11,10.5,9.5,8.5],
+  "Almond Medium":[17,16,15,14,13,12.5,12,11.5,11,10.5,9.5,8.5],
+  "Almond Short":[19,17.5,16,15,14.5,14,13.5,13,12,11,10,9],
+  "Toes":[23,21.5,20.5,20,19,18,15,14,13,12]
+ };
+ let type="",shape="";
+ const $=id=>document.getElementById(id);
+ function step(which){
+  ["finderTypeStep","finderShapeStep","finderMeasureStep"].forEach(id=>$(id).hidden=id!==which);
+  $("finderProgress").style.width=which==="finderTypeStep"?"33.33%":which==="finderShapeStep"?"66.66%":"100%";
+  $("finderResult").hidden=true;
+ }
+ document.querySelectorAll("[data-finder-type]").forEach(btn=>btn.addEventListener("click",()=>{
+  type=btn.dataset.finderType;
+  document.querySelectorAll("[data-finder-type]").forEach(x=>x.classList.toggle("selected",x===btn));
+  if(type==="toes"){shape="Toes";step("finderMeasureStep");$("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät tån från sida till sida vid bredaste punkten";$("finderHint").textContent="Tåguiden använder samma storleksserie för alla tådesigner.";}
+  else{step("finderShapeStep");$("finderShapeLabel").textContent="VÄLJ FORM PÅ DINA NAGLAR";}
+ }));
+ document.querySelectorAll("[data-finder-shape]").forEach(btn=>btn.addEventListener("click",()=>{
+  shape=btn.dataset.finderShape;
+  document.querySelectorAll("[data-finder-shape]").forEach(x=>x.classList.toggle("selected",x===btn));
+  $("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät din naturliga nagel från sida till sida vid bredaste punkten";
+  $("finderHint").textContent="Använd samma form som du tänker beställa.";
+  step("finderMeasureStep");
+ }));
+ $("finderCalculate").addEventListener("click",()=>{
+  const measure=parseFloat(String($("finderMeasure").value).replace(",",".")),arr=widths[shape];
+  if(!Number.isFinite(measure)||measure<7||measure>25){$("finderHint").textContent="Skriv ett mått mellan 7 och 25 mm.";return;}
+  let best=0;arr.forEach((v,i)=>{if(Math.abs(v-measure)<Math.abs(arr[best]-measure))best=i;});
+  const size=shape==="Toes"?(best===0?"00":String(best-1)):String(best).padStart(2,"0");
+  const diff=Math.abs(arr[best]-measure);
+  $("finderResult").innerHTML=`<span class="finder-label">DIN REKOMMENDATION</span><strong>Storlek ${size}</strong><p>Närmast ditt mått: ${String(arr[best]).replace(".",",")} mm · ${shape==="Toes"?"Tår":"Form: "+shape}</p><small>${diff>0.75?"Du ligger mellan mått – välj gärna den större storleken eller prova vårt Size Kit.":"Det här är närmaste måttet i vår storlekstabell. Mät gärna en extra gång för säkerhets skull."}</small>`;
+  $("finderResult").hidden=false;$("finderHint").textContent="Klart! Du kan börja om om du vill jämföra en annan form.";
+ });
+ $("finderReset").addEventListener("click",()=>{
+  type="";shape="";$("finderMeasure").value="";document.querySelectorAll(".finder-choice").forEach(x=>x.classList.remove("selected"));step("finderTypeStep");$("finderHint").textContent="Mät rakt över nageln, från sida till sida.";
+ });
+})();
+
+
+/* Contact form: prepare a message in the visitor's email application. */
+(function(){
+ const form=document.getElementById("pnpContactForm");
+ if(!form)return;
+ form.addEventListener("submit",function(e){
+  e.preventDefault();
+  const data=new FormData(form);
+  const name=String(data.get("name")||"").trim();
+  const email=String(data.get("email")||"").trim();
+  const topic=String(data.get("topic")||"Allmän fråga");
+  const message=String(data.get("message")||"").trim();
+  if(!name||!email||!message){form.reportValidity();return;}
+  const subject=encodeURIComponent("PressN’Pop – "+topic);
+  const body=encodeURIComponent("Namn: "+name+"\nE-post: "+email+"\nÄrende: "+topic+"\n\n"+message);
+  window.location.href="mailto:pressnpop.uf@gmail.com?subject="+subject+"&body="+body;
+  const note=document.getElementById("contactFormNote");
+  if(note)note.textContent="Ditt e-postprogram öppnas nu. Skicka mejlet därifrån för att slutföra.";
+ });
+})();

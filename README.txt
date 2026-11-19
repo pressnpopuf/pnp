@@ -1,11 +1,20 @@
-PRESSN’POP × VOLTA – nya webbplatsfiler
+PRESSN’POP UF – VOLTA-inspirerad version 2
 
-Lägg upp index.html, style.css och script.js tillsammans i samma mapp.
-Behåll den befintliga mappen "bilder" bredvid filerna. HTML-filen använder era befintliga bildnamn därifrån (bland annat produktbilder och logotyp). Bildmappen ingår inte i detta paket eftersom den inte laddades upp separat.
+Ladda upp index.html, style.css och script.js tillsammans till samma mapp.
+Behåll även den befintliga mappen "bilder" bredvid filerna – produkternas foton
+hämtas därifrån.
 
-Designändringar:
-- VOLTA-inspirerad kompakt navigation med kollektion, custom, frakt/frågor, kontakt och varukorg.
-- Sidomeny med resten av webbplatsens länkar.
-- Produktkollektionen visas i ett lugnare rutnät i stället för en lång horisontell scroll.
-- Era befintliga produktbilder får diskreta CSS-baserade 3D-perspektiv- och hover-rörelser. Det är inte fristående 3D-modeller; sådana kräver separata 3D-modellfiler.
-- Befintliga produktnamn, priser, beställningsflöde, storleksval, custom-formulär, Swish-/fraktlogik och språkfunktioner är bevarade.
+Nyheter:
+- Mörkare, mer kontrastrik och editorial VOLTA-inspirerad design.
+- Stor hero med svävande/perspektiv-animerad varumärkesbild.
+- Mer distinkt navigation, hover-känsla, mörkare varukorg och kassavy.
+- Ny stegvis storleksguide: välj Naglar eller Tår, välj nagelform (för naglar),
+  ange mått i mm och få närmaste storlek från PressN’Pops storlekstabeller.
+- Den tidigare storlekstabellen finns kvar i koden som underlag, men visas inte
+  som ett stort block för kunden.
+
+Viktigt:
+Produktbilden i hero använder den befintliga inbäddade logobilden som visuell
+3D-liknande centerpiece. Det är CSS-perspektiv/animation, inte en riktig 3D-modell.
+Storleksförslaget är vägledande; mät noggrant och använd Size Kit om du är osäker.
+Kontakt- och beställningsflöden behåller sajtens befintliga funktionalitet.

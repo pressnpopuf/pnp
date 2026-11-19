@@ -3260,22 +3260,75 @@ document.addEventListener("click", function(event) {
 })();
 
 
-/* Contact form: prepare a message in the visitor's email application. */
+/* Contact form: send directly through the same FormSubmit AJAX endpoint as orders. */
 (function(){
  const form=document.getElementById("pnpContactForm");
  if(!form)return;
- form.addEventListener("submit",function(e){
+ form.addEventListener("submit",async function(e){
   e.preventDefault();
+  if(!form.reportValidity())return;
+  const button=form.querySelector('button[type="submit"]');
+  const note=document.getElementById("contactFormNote");
   const data=new FormData(form);
   const name=String(data.get("name")||"").trim();
   const email=String(data.get("email")||"").trim();
   const topic=String(data.get("topic")||"Allmän fråga");
   const message=String(data.get("message")||"").trim();
-  if(!name||!email||!message){form.reportValidity();return;}
-  const subject=encodeURIComponent("PressN’Pop – "+topic);
-  const body=encodeURIComponent("Namn: "+name+"\nE-post: "+email+"\nÄrende: "+topic+"\n\n"+message);
-  window.location.href="mailto:pressnpop.uf@gmail.com?subject="+subject+"&body="+body;
-  const note=document.getElementById("contactFormNote");
-  if(note)note.textContent="Ditt e-postprogram öppnas nu. Skicka mejlet därifrån för att slutföra.";
+  const payload=new FormData();
+  payload.append("_subject","PressN’Pop – Kontakt: "+topic);
+  payload.append("_template","table");
+  payload.append("_captcha","false");
+  payload.append("_replyto",email);
+  payload.append("name",name);
+  payload.append("email",email);
+  payload.append("Ärende",topic);
+  payload.append("Meddelande",message);
+  if(button){button.disabled=true;button.textContent="Skickar…";}
+  if(note)note.textContent="Ditt meddelande skickas…";
+  try{
+   const response=await fetch("https://formsubmit.co/ajax/pressnpop.uf@gmail.com",{
+    method:"POST",headers:{"Accept":"application/json"},body:payload
+   });
+   const result=await response.json().catch(()=>({}));
+   const ok=response.ok&&(result.success===true||result.success==="true");
+   if(!ok)throw new Error(result.message||("HTTP "+response.status));
+   form.reset();
+   if(note)note.textContent="Tack! Ditt meddelande har skickats till oss. Vi återkommer så snart vi kan.";
+  }catch(error){
+   console.warn("Kontaktformuläret kunde inte skickas:",error);
+   if(note)note.textContent="Det gick inte att skicka just nu. Försök igen eller mejla pressnpop.uf@gmail.com.";
+  }finally{
+   if(button){button.disabled=false;button.textContent="Skicka meddelande ↗";}
+  }
  });
+})();
+
+/* Scroll-linked ritual chapter indicator */
+(function(){
+ const steps=[...document.querySelectorAll(".ritual-step")];
+ const core=document.getElementById("ritualVisualCore");
+ if(!steps.length||!core)return;
+ const number=document.getElementById("ritualVisualNumber");
+ const symbol=document.getElementById("ritualVisualSymbol");
+ const caption=document.getElementById("ritualVisualCaption");
+ const count=document.getElementById("ritualVisualCount");
+ function activate(step){
+  steps.forEach(s=>s.classList.toggle("is-active",s===step));
+  core.classList.add("is-changing");
+  const n=step.dataset.step;
+  number.textContent=n;
+  symbol.textContent=step.dataset.symbol||"✳";
+  caption.textContent=step.dataset.caption||"PRESSN’POP";
+  count.textContent=n+" / 06";
+  window.setTimeout(()=>core.classList.remove("is-changing"),180);
+ }
+ if("IntersectionObserver" in window){
+  const observer=new IntersectionObserver(entries=>{
+   const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
+   if(visible[0])activate(visible[0].target);
+  },{root:null,rootMargin:"-28% 0px -28% 0px",threshold:[0,.15,.35,.6]});
+  steps.forEach(s=>observer.observe(s));
+ }else{
+  window.addEventListener("scroll",()=>{let best=steps[0],dist=Infinity;steps.forEach(s=>{const d=Math.abs(s.getBoundingClientRect().top-innerHeight*.45);if(d<dist){dist=d;best=s;}});activate(best);},{passive:true});
+ }
 })();

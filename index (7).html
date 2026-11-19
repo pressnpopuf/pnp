@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VOLTA — Hair Lab | Hår med spänning</title>
+  <meta name="description" content="VOLTA Hair Lab — fyra formler för hår med spänning. Shampoo, mask, texturspray och glansolja i en 3D-upplevelse.">
+  <meta name="theme-color" content="#07060b">
+  <meta property="og:title" content="VOLTA — Hair Lab">
+  <meta property="og:description" content="Hår med spänning. Drop 01 är här.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__num"><span id="loaderNum">0</span><small>%</small></div>
+    <div class="loader__bar"><i id="loaderBar"></i></div>
+    <p>VOLTA Hair Lab — laddar dropen</p>
+  </div>
+
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cur cur--dot" id="curDot" aria-hidden="true"></div>
+  <div class="cur cur--ring" id="curRing" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#top" class="logo">VOLTA<sup>®</sup></a>
+    <nav class="nav__links" aria-label="Huvudmeny">
+      <a href="#shop">Produkter</a>
+      <a href="#ritual">Ritualen</a>
+      <a href="#manifest">Manifest</a>
+      <a href="#join">Klubben</a>
+    </nav>
+    <div class="nav__right">
+      <button class="cartbtn" id="cartBtn" aria-label="Öppna väskan">Väska <span id="cartCount">0</span></button>
+      <button class="burger" id="burger" aria-label="Meny" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu">
+    <a href="#shop">Produkter</a>
+    <a href="#ritual">Ritualen</a>
+    <a href="#manifest">Manifest</a>
+    <a href="#join">Klubben</a>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <h1 class="hero__word" id="heroWord" aria-label="Volta">
+        <span style="--i:0">V</span><span style="--i:1">O</span><span style="--i:2">L</span><span style="--i:3">T</span><span style="--i:4">A</span>
+      </h1>
+      <div class="hero__glow"></div>
+      <div class="hero__orbit"><i></i></div>
+
+      <div class="hero__stage" id="heroStage">
+        <div class="float"><div class="scene" id="heroScene"></div></div>
+      </div>
+
+      <div class="hero__copy" id="heroCopy">
+        <p class="eyebrow">Hair Lab — Drop 01</p>
+        <h2 data-split>Hår med <em>spänning.</em></h2>
+        <p class="hero__p">Fyra formler. Noll blygsamhet. Byggda för dig som aldrig bad om att vara subtil.</p>
+        <div class="hero__cta">
+          <a class="btn btn--fill magnetic" href="#shop"><span>Shoppa dropen</span></a>
+          <a class="btn magnetic" href="#ritual"><span>Se ritualen</span></a>
+        </div>
+      </div>
+
+      <div class="hero__meta">
+        <span>Dra flaskan för att snurra</span>
+        <span class="scrollhint"><i></i>Scrolla</span>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__in">
+        <div class="marquee__g"><span>Hår med spänning</span><span>✦</span><span>Drop 01</span><span>✦</span><span>Static</span><span>✦</span><span>Surge</span><span>✦</span><span>Gravity</span><span>✦</span><span>Afterglow</span><span>✦</span></div>
+        <div class="marquee__g"><span>Hår med spänning</span><span>✦</span><span>Drop 01</span><span>✦</span><span>Static</span><span>✦</span><span>Surge</span><span>✦</span><span>Gravity</span><span>✦</span><span>Afterglow</span><span>✦</span></div>
+      </div>
+    </div>
+
+    <!-- SHOP (horizontal scroll) -->
+    <section class="shop" id="shop">
+      <div class="shop__pin">
+        <div class="shop__head">
+          <p class="eyebrow">Drop 01 / fyra formler</p>
+          <h2 data-split>Välj din <em>laddning</em></h2>
+        </div>
+        <div class="shop__track" id="track"></div>
+        <div class="shop__bar"><i id="shopBar"></i></div>
+      </div>
+    </section>
+
+    <!-- RITUAL (3D scroll story) -->
+    <section class="ritual" id="ritual">
+      <div class="ritual__pin" id="ritualPin">
+        <div class="ritual__stage">
+          <div class="ritual__ring"></div>
+          <div class="ritual__ring ritual__ring--b"></div>
+          <div class="float"><div class="scene" id="ritualScene"></div></div>
+        </div>
+        <div class="ritual__right">
+          <p class="eyebrow">Ritualen — scrolla</p>
+          <div class="ritual__steps" id="steps"></div>
+        </div>
+        <div class="ritual__count"><b id="stepNum">01</b> / 04</div>
+      </div>
+    </section>
+
+    <!-- MANIFEST -->
+    <section class="manifesto" id="manifest">
+      <div class="manifesto__pin">
+        <p class="manifesto__text" id="mtext">Vi gör inte hårvård för att *passa in*. Vi gör den för att *ta plats*. Varje flaska är en liten urladdning av självförtroende — formulerad i labbet, byggd för spegeln och designad för dig som aldrig bad om att vara subtil.</p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+      <div class="stat reveal"><b data-count="4">0</b><span>Formler i dropen</span></div>
+      <div class="stat reveal"><b data-count="250" data-suffix=" ml">0</b><span>Största flaskan</span></div>
+      <div class="stat reveal"><b>∞</b><span>Attityd per applicering</span></div>
+      <div class="stat reveal"><b data-count="1">0</b><span>Regel: ta plats</span></div>
+    </section>
+
+    <!-- JOIN -->
+    <section class="join" id="join">
+      <div class="join__bg" aria-hidden="true">KLUBBEN</div>
+      <div class="join__card reveal" id="joinCard">
+        <p class="eyebrow">VOLTA Klubben</p>
+        <h2 data-split>Var först med nästa <em>drop</em></h2>
+        <form id="joinForm" novalidate>
+          <label class="sr" for="email">E-postadress</label>
+          <input id="email" type="email" placeholder="din@epost.se" autocomplete="email" required>
+          <button class="btn btn--fill magnetic" type="submit"><span>Gå med</span></button>
+        </form>
+        <p class="join__msg" id="joinMsg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <a href="#top" class="logo">VOLTA<sup>®</sup></a>
+        <p class="footer__txt">Hair Lab för dig som vill ha mer än ett schampo. Drop 01 — fyra formler.</p>
+      </div>
+      <div>
+        <h4>Utforska</h4>
+        <a href="#shop">Produkter</a>
+        <a href="#ritual">Ritualen</a>
+        <a href="#manifest">Manifest</a>
+      </div>
+      <div>
+        <h4>Kundservice</h4>
+        <a href="#top">Frakt &amp; retur</a>
+        <a href="#top">Kontakt</a>
+        <a href="#top">Integritetspolicy</a>
+      </div>
+      <div>
+        <h4>Följ</h4>
+        <a href="#top">Instagram</a>
+        <a href="#top">TikTok</a>
+      </div>
+    </div>
+    <div class="footer__word" aria-hidden="true">VOLTA</div>
+    <p class="footer__bot">© 2026 VOLTA Hair Lab. Demo-sajt — produkter, priser och länkar är exempel.</p>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="cart" id="cart" aria-label="Väska" aria-hidden="true">
+    <div class="cart__head"><h3>Din väska</h3><button id="cartClose" aria-label="Stäng">✕</button></div>
+    <div class="cart__list" id="cartList"></div>
+    <div class="cart__foot">
+      <div class="cart__total"><span>Totalt</span><strong id="cartTotal">0 kr</strong></div>
+      <button class="btn btn--fill btn--block" id="checkout"><span>Gå till kassan</span></button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

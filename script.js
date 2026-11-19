@@ -3312,6 +3312,10 @@ document.addEventListener("click", function(event) {
  const symbol=document.getElementById("ritualVisualSymbol");
  const caption=document.getElementById("ritualVisualCaption");
  const count=document.getElementById("ritualVisualCount");
+ let photo=core.querySelector(".ritual-visual-photo");
+ if(!photo){photo=document.createElement("img");photo.className="ritual-visual-photo";photo.alt="Detalj från PressN’Pop-kitet";photo.setAttribute("aria-hidden","true");core.prepend(photo);}
+ let progress=document.querySelector(".ritual-progress span");
+ if(!progress){const track=document.createElement("div");track.className="ritual-progress";track.setAttribute("aria-hidden","true");track.innerHTML="<span></span>";core.parentElement.appendChild(track);progress=track.querySelector("span");}
  function activate(step){
   steps.forEach(s=>s.classList.toggle("is-active",s===step));
   core.classList.add("is-changing");
@@ -3320,6 +3324,9 @@ document.addEventListener("click", function(event) {
   symbol.textContent=step.dataset.symbol||"✳";
   caption.textContent=step.dataset.caption||"PRESSN’POP";
   count.textContent=n+" / 06";
+  const image=step.dataset.image;
+  if(image&&photo.getAttribute("src")!==image){photo.classList.remove("is-visible");photo.onload=()=>photo.classList.add("is-visible");photo.onerror=()=>photo.classList.remove("is-visible");photo.src=image;if(photo.complete&&photo.naturalWidth)photo.classList.add("is-visible");}
+  if(progress)progress.style.width=(Number(n)/steps.length*100)+"%";
   window.setTimeout(()=>core.classList.remove("is-changing"),180);
  }
  if("IntersectionObserver" in window){

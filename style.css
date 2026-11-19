@@ -3573,3 +3573,106 @@ section h1,section h2,section h3,.rubrik h2,.ritual-step h3{color:#fff7f5!import
 #cartCheckoutModal h2,#cartCheckoutModal h3,#cartCheckoutModal label{color:#fff7f5!important;font-family:'Cormorant Garamond',Georgia,serif!important}
 #cartCheckoutModal input,#cartCheckoutModal textarea,#cartCheckoutModal select{background:#16080c!important;border-color:rgba(237,120,145,.28)!important;color:#fff7f5!important;font-family:'Cormorant Garamond',Georgia,serif!important}
 #cartCheckoutModal .knapp{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:17px!important}
+
+/* VERSION 5 — soft blush, warm beige and rose contrast */
+:root{
+ --pnp-night:#43232d;--pnp-night2:#5b2c3b;--pnp-hot:#d97898;--pnp-muted:#765d62;
+ --pnp-blush:#f8e9e8;--pnp-cream:#fbf5ed;--pnp-paper:#fffaf6;--pnp-rose:#d97898;--pnp-deep-rose:#9f4965;
+}
+body{background:#fbf5ed!important;color:#432d32!important}
+/* Light editorial base: dark copy on pale surfaces */
+.how-it-works,.design-section,.about-section,.included-section:not(.ritual-section),.faq-section,.contact-section,.size-section,.custom-section{
+ background:#fbf5ed!important;color:#432d32!important
+}
+.rubrik h2,.how-it-works h2,.design-section h2,.about-section h2,.faq-section h2,.contact-section h2,.custom-section h2,.size-section h2{
+ color:#482b34!important;text-shadow:none!important
+}
+.rubrik>span,.rubrik span,.section-eyebrow,.how-it-works .rubrik>span{color:#a34e6a!important}
+.how-card,.nagel-kort,.product-card,.about-card,.faq-item,.custom-card,.size-card{
+ background:#fffaf6!important;color:#482f36!important;border:1px solid rgba(164,83,111,.18)!important;box-shadow:0 14px 38px rgba(99,52,67,.07)!important
+}
+.how-card h3,.nagel-info h3,.about-section h3,.faq-item h3,.custom-card h3,.size-card h3{color:#482b34!important}
+.how-card p,.nagel-info p,.about-section p,.faq-item p,.custom-card p,.size-card p{color:#725d61!important}
+.design-section .nagel-kort{background:#fffaf6!important}
+.design-section .nagel-info h3{color:#482b34!important}
+.design-section .nagel-info p{color:#725d61!important}
+.design-section .product-card-price{color:#a94f70!important}
+.design-section .nagel-bild{background:#f2dfdf!important}
+.knapp{background:#d97898!important;color:#fffaf6!important;border-color:#d97898!important}
+.knapp:hover{background:#b95e7e!important}
+.knapp-outline{background:transparent!important;color:#98445f!important;border-color:#b96a82!important}
+/* Hero stays distinctive, but shifts from red to rosy beige */
+.hero{background:radial-gradient(ellipse at 76% 40%,#f0d2d2 0%,transparent 44%),linear-gradient(120deg,#fbf4ed 0%,#f4e3e2 55%,#ead0d2 100%)!important;color:#482b34!important}
+.hero-text h1,.hero-text h2,.hero-text p,.hero .liten-text{color:#482b34!important;text-shadow:none!important}
+.hero-text h1{font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:500!important;letter-spacing:-.045em!important}
+.hero-text h2{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(27px,3vw,42px)!important;font-weight:500!important}
+.hero-text p{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(19px,1.7vw,23px)!important}
+.hero .liten-text{color:#9d526a!important}
+.hero-size-link{color:#65434d!important}
+/* Keep dark areas dark, with light type: clear contrast in both directions */
+.pnp-nav,.site-detail-menu,.pnp-nav .site-detail-menu,.footer,.dark-section{
+ background:#43232d!important;color:#fff8f4!important
+}
+.pnp-nav a,.pnp-nav button,.site-detail-menu a,.site-detail-menu p,.site-detail-menu-heading{color:#fff8f4!important}
+.pnp-nav .site-menu-toggle span{background:#fff8f4!important}
+/* Ritual: a light, roomy, image-led guide */
+.ritual-section{background:#f6e9e5!important;color:#482b34!important;padding-top:clamp(76px,9vw,130px)!important;padding-bottom:clamp(76px,9vw,130px)!important}
+.ritual-intro h2{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(52px,7vw,92px)!important;font-weight:500!important;line-height:.94!important;letter-spacing:-.045em!important;color:#482b34!important}
+.ritual-intro h2 em{color:#b65d7a!important}
+.ritual-eyebrow{color:#a65370!important}
+.ritual-intro p{color:#725b60!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:20px!important;line-height:1.55!important}
+.ritual-link{color:#713d4d!important;border-color:rgba(133,70,91,.3)!important;background:rgba(255,250,246,.6)!important}
+.ritual-link span{color:#b65d7a!important}
+.ritual-layout{gap:clamp(32px,6vw,90px)!important}
+.ritual-visual-wrap{min-height:640px!important}
+.ritual-visual-sticky{background:linear-gradient(145deg,#ead0d0,#f8eeea 58%,#e7c9ce)!important;border:1px solid rgba(155,81,104,.2)!important;box-shadow:0 25px 70px rgba(106,60,74,.12)!important}
+.ritual-visual-orbit{border-color:rgba(173,91,119,.32)!important;box-shadow:0 0 0 25px rgba(173,91,119,.045),0 0 0 65px rgba(173,91,119,.025)!important}
+.ritual-visual-core{width:min(72%,390px)!important;aspect-ratio:4/5!important;border-radius:48% 48% 12px 12px!important;overflow:hidden!important;position:relative!important;background:linear-gradient(145deg,#fff8f2,#e9cdd0)!important;border:1px solid rgba(164,83,111,.25)!important;box-shadow:0 20px 60px rgba(103,55,69,.12)!important;transform:rotate(-2deg)!important}
+.ritual-visual-core.is-changing{transform:rotate(2deg) scale(.96)!important}
+.ritual-visual-number{position:absolute!important;top:17px!important;left:22px!important;z-index:3!important;font:500 24px 'Cormorant Garamond',serif!important;color:#9c4c68!important;letter-spacing:0!important}
+.ritual-visual-symbol{display:none!important}
+.ritual-visual-caption{position:absolute!important;bottom:20px!important;z-index:3!important;padding:7px 12px!important;background:rgba(255,250,246,.84)!important;border-radius:30px!important;color:#633d49!important;font:600 11px 'Cormorant Garamond',serif!important;letter-spacing:.13em!important}
+.ritual-visual-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .55s ease,transform .8s ease;}
+.ritual-visual-photo.is-visible{opacity:1;transform:scale(1)}
+.ritual-visual-meta{color:#684650!important;font-family:'Cormorant Garamond',serif!important;font-size:12px!important}
+.ritual-step{min-height:72vh!important;padding:70px 0!important;border-bottom:1px solid rgba(139,78,96,.2)!important;opacity:.32!important;transform:translateY(34px)!important;transition:opacity .7s ease,transform .7s ease!important}
+.ritual-step.is-active{opacity:1!important;transform:translateY(0)!important}
+.ritual-step-top{color:#a65370!important;font-size:12px!important}
+.ritual-step h3{font:500 clamp(43px,5.4vw,70px)/.98 'Cormorant Garamond',Georgia,serif!important;letter-spacing:-.035em!important;color:#482b34!important;margin:24px 0 17px!important}
+.ritual-step p{max-width:510px!important;color:#69545a!important;font:400 19px/1.65 'Cormorant Garamond',Georgia,serif!important}
+.ritual-step .ritual-item-note{color:#a65370!important;font-size:16px!important}
+.ritual-tip{max-width:510px!important;margin-top:30px!important;padding:20px 22px!important;border-left:3px solid #c66e8b!important;background:#fdf5f0!important;box-shadow:0 10px 28px rgba(111,61,76,.06)!important}
+.ritual-tip b{color:#a65370!important;font:600 14px 'Cormorant Garamond',serif!important}
+.ritual-tip span{color:#654e55!important;font:400 17px/1.5 'Cormorant Garamond',serif!important}
+.ritual-note{color:#795e65!important;font:italic 17px 'Cormorant Garamond',serif!important}
+.ritual-progress{height:3px;background:rgba(151,78,102,.15);position:absolute;left:24px;right:24px;bottom:55px;overflow:hidden;border-radius:5px}
+.ritual-progress span{display:block;height:100%;width:16.666%;background:#b65d7a;transition:width .55s ease}
+/* Larger type where cards and panels have room */
+.how-card h3,.about-content h3,.contact-form-title,.pnp-contact-form h3{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(25px,2.2vw,34px)!important}
+.how-card p,.about-content p{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:18px!important;line-height:1.6!important}
+.pnp-contact-form{background:#fffaf6!important;color:#482b34!important;border-color:rgba(164,83,111,.2)!important}
+.pnp-contact-form h3,.pnp-contact-form label{color:#482b34!important}
+.pnp-contact-form input,.pnp-contact-form select,.pnp-contact-form textarea{background:#fff!important;color:#482b34!important;border-color:#e4c9ce!important}
+.contact-form-note{color:#795e65!important}
+/* Inputs and checkout: pale surfaces with dark, readable text */
+input,textarea,select{color:#482b34}
+#cartModal .cart-box,#cartCheckoutModal .cart-checkout-box,#cartCheckoutModal .modal-content,#cartCheckoutModal .modal-box,#cartCheckoutModal .modal-inner{background:linear-gradient(155deg,#fffaf6,#f4e4e3)!important;color:#482b34!important;border-color:#e4c4cb!important}
+#cartModal .cart-box h2,#cartCheckoutModal h2,#cartCheckoutModal h3,#cartCheckoutModal label{color:#482b34!important}
+#cartModal .cart-box .modal-subtitle,#cartModal .cart-box .delivery-choice-title{color:#70555d!important}
+#cartModal .cart-box .close{background:#a94f70!important;color:#fffaf6!important}
+#cartModal .delivery-choice-button{background:#f8e9e8!important;color:#482b34!important;border-color:#e4c4cb!important}
+#cartModal .delivery-choice-button.active,#cartModal .delivery-choice-button.selected{background:#c66e8b!important;color:white!important}
+#cartModal .cart-item,#cartModal .cart-summary-card{background:#fff!important;color:#482b34!important;border-color:#e8d2d4!important}
+#cartModal .cart-summary-card strong,#cartModal .cart-quantity-summary strong{color:#482b34!important}
+#cartModal .swish-cart-note{background:#f8e9e8!important;color:#482b34!important;border-color:#e4c4cb!important}
+#cartModal .cart-actions{background:linear-gradient(0deg,#f4e4e3 80%,transparent)!important}
+#cartCheckoutModal input,#cartCheckoutModal textarea,#cartCheckoutModal select{background:#fff!important;color:#482b34!important;border-color:#e4c4cb!important}
+@media(max-width:800px){
+ .ritual-visual-wrap{height:36vh!important;min-height:220px!important}
+ .ritual-visual-sticky{min-height:0!important}
+ .ritual-visual-core{width:min(43%,190px)!important;aspect-ratio:1/1.15!important}
+ .ritual-step{min-height:60vh!important;padding:48px 0!important}
+ .ritual-step p{font-size:17px!important}
+ .ritual-intro p{font-size:18px!important}
+}
+@media(prefers-reduced-motion:reduce){.ritual-step,.ritual-visual-photo{transition:none!important}}

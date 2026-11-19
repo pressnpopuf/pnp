@@ -424,7 +424,12 @@
       <label><span>04 · Pekfinger</span><div><input class="finder-finger-measure" id="finderMeasure3" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
       <label><span>05 · Tumme</span><div><input class="finder-finger-measure" id="finderMeasure4" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
     </div>
-    <div class="finder-toe-measure" id="finderToeMeasure" hidden><label for="finderToeInput">Mått för tån</label><div><input id="finderToeInput" type="number" min="5" max="25" step="0.5" placeholder="t.ex. 18"><small>mm</small></div></div>
+    <div class="finder-toe-measure" id="finderToeMeasure" hidden><p class="finder-measure-help">Mät varje tå rakt över den bredaste delen och fyll i måtten i millimeter.</p><div class="finder-finger-grid finder-toe-grid">
+<label><span>01 · Lilltå</span><div><input class="finder-toe-measure-input" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+<label><span>02 · Tå 4</span><div><input class="finder-toe-measure-input" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+<label><span>03 · Tå 3</span><div><input class="finder-toe-measure-input" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+<label><span>04 · Tå 2</span><div><input class="finder-toe-measure-input" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label>
+<label><span>05 · Stortå</span><div><input class="finder-toe-measure-input" type="number" min="5" max="25" step="0.5" placeholder="mm"><small>mm</small></div></label></div></div>
     <p class="finder-hint" id="finderHint">Fyll i alla fem mått för att se din storlekskombination.</p>
     <button type="button" id="finderCalculate" class="finder-show-results">Visa mina storlekar ↗</button>
     <div class="finder-result" id="finderResult" hidden aria-live="polite"></div>
@@ -434,16 +439,19 @@
 </div>
 
 <div class="length-guide-card">
-    <div class="length-guide-heading">
-        <div class="length-guide-heading-copy"><h3>Välj din perfekta längd</h3><p>Nagellängden mäts på tummen från nagelbandet till tippen. Övriga naglar anpassas proportionerligt. </p></div>
-    </div>
-    <div class="length-guide-options">
-        <div class="length-guide-option"><span>Medium</span><strong>25 mm</strong></div>
-        <div class="length-guide-option"><span>Short</span><strong>23 mm</strong></div>
-        <div class="length-guide-option"><span>X Short</span><strong>20 mm</strong></div>
-        <div class="length-guide-option"><span>XX Short</span><strong>17 mm</strong></div>
-    </div>
-    <div class="toe-length-note"><strong>För tår:</strong> välj mellan 20 mm, 18 mm eller 16 mm. Måttet avser stortån – de övriga tårna anpassas proportionerligt.</div>
+ <div class="length-guide-heading"><div class="length-guide-heading-copy">
+ <h3>Hitta din nagellängd</h3>
+ <p>Mät från nagelbandet på tummen till den längd du önskar. Läs av måttet i millimeter och jämför med längderna nedan. Om ditt mått hamnar mellan två alternativ visas båda – välj själv den du gillar bäst.</p>
+ </div></div>
+ <div class="length-measure-tool">
+ <label for="lengthMeasureInput">Ditt mått från nagelband till önskad tipp</label>
+ <div class="length-measure-entry"><input id="lengthMeasureInput" type="number" min="10" max="40" step="0.5" placeholder="Skriv mm, t.ex. 22"><span>mm</span><button type="button" id="lengthMeasureButton">Hitta min längd</button></div>
+ <p class="length-measure-hint" id="lengthMeasureHint" aria-live="polite">Ange ditt mått så rekommenderar vi en längd.</p>
+ <div class="length-measure-results" id="lengthMeasureResults" aria-live="polite"></div></div>
+ <div class="length-guide-options">
+ <div class="length-guide-option"><span>Medium</span><strong>25 mm</strong></div><div class="length-guide-option"><span>Short</span><strong>23 mm</strong></div>
+ <div class="length-guide-option"><span>X Short</span><strong>20 mm</strong></div><div class="length-guide-option"><span>XX Short</span><strong>17 mm</strong></div></div>
+ <div class="toe-length-note"><strong>För tår:</strong> välj mellan 20 mm, 18 mm eller 16 mm. Måttet avser stortån – de övriga tårna anpassas proportionerligt.</div>
 </div>
 
 <div class="size-content">
@@ -1094,7 +1102,7 @@
             </div>
         </div>
 
-        <div style="background:#fbecef;border:1px solid #f0d6df;border-radius:15px;padding:15px 17px;margin-bottom:18px;color:#666;font-size:12px;line-height:1.6;">
+        <div class="cart-included-note">
             <strong style="color:var(--morkrosa);">I varje nagel- och tåset ingår:</strong><br>
             Nagelbandsputtare · Alkoholpad · Glue tabs · Nagellim · Nagelfil · Lapp med instruktioner för applicering och skötsel
         </div>

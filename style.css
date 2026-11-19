@@ -3856,3 +3856,35 @@ section[style*="background:#1"],section[style*="background: #1"] h2,
  .product-detail-content p,.product-material-note,.product-description,.included-product-note{font-size:16px!important}
  .pnp-contact-form{padding:22px 18px!important}
 }
+
+/* PressN'Pop refinements v8 */
+:root{--rosa:#b98b75;--ljusrosa:#f1e8e2}
+.knapp,.cart-button,.site-menu-cart{background:#4b403b!important;color:#fff!important;box-shadow:none!important}
+.knapp:hover,.cart-button:hover,.site-menu-cart:hover{background:#766158!important}
+.knapp-outline{background:transparent!important;color:#4b403b!important;border-color:#8c776b!important}
+.logo-link{display:flex;align-items:center;justify-content:center}
+.logo-text{display:inline-flex;align-items:center;justify-content:center;width:154px;height:54px;border:1.5px solid #9a806f;border-radius:50%;font-size:21px!important;letter-spacing:-1.1px;line-height:1;white-space:nowrap}
+.hero-logo{width:360px;height:360px;flex:0 0 360px}.hero-logo::before{width:326px;height:326px}.hero-logo img{width:82%;height:82%}
+.cart-included-note{display:block!important;visibility:visible!important;opacity:1!important;position:relative;z-index:5;background:#f4eee9;border:1px solid #ded1c7;border-radius:14px;padding:16px 18px;margin:0 0 18px;color:#514740;font-size:14px;line-height:1.75}
+.cart-included-note strong{color:#403630!important;font-size:14px}
+.product-card .nagel-info h3,.nagel-info h3{font-family:"Poppins",sans-serif!important;font-size:21px!important;font-weight:500!important}
+.product-detail h1,.product-detail h2,.product-detail h3,.product-modal h1,.product-modal h2,.product-modal h3{font-family:"Poppins",sans-serif!important;font-size:clamp(18px,2.2vw,25px)!important;line-height:1.25!important;font-weight:500!important}
+.product-detail label,.product-modal label,.product-options label{font-family:"Poppins",sans-serif!important;font-size:14px!important;font-weight:500}
+.finder-choice-row .finder-choice{min-height:92px}.finder-choice b,.finder-choice small,.finder-choice .shape-glyph{display:block;visibility:visible;opacity:1}
+.finder-choice{color:#413832!important}.finder-choice.selected{background:#e9ded6!important;border:2px solid #786456!important;color:#302722!important;box-shadow:0 0 0 2px rgba(120,100,86,.12)}
+.finder-choice.selected b,.finder-choice.selected small{color:#302722!important}
+.finder-step[hidden],.finder-toe-measure[hidden]{display:none!important}.finder-toe-grid{margin-top:12px}
+.length-guide-card{background:#f8f3ef;border:1px solid #e5d9d0;border-radius:22px;padding:clamp(18px,3vw,30px)}
+.length-measure-tool{background:#fff;border:1px solid #e5d9d0;border-radius:16px;padding:18px;margin:18px 0}
+.length-measure-tool>label{display:block;font-size:14px;font-weight:600;margin-bottom:10px;color:#4b403b}
+.length-measure-entry{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.length-measure-entry input{min-width:120px;flex:1;border:1px solid #cdbdb2;border-radius:10px;padding:12px;font:inherit;font-size:16px}
+.length-measure-entry>span{color:#76665d}
+.length-measure-entry button{border:0;border-radius:24px;background:#4b403b;color:white;padding:12px 18px;font:inherit;cursor:pointer}
+.length-measure-hint{margin:12px 0 0;font-size:14px;color:#5d514a}
+.length-measure-results{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.length-result-choice{border:1px solid #bca99c;background:#faf7f4;color:#42362f;border-radius:13px;padding:12px 18px;min-width:110px;text-align:center;cursor:pointer}
+.length-result-choice strong,.length-result-choice span{display:block}.length-result-choice strong{font-size:17px}
+.length-result-choice.selected{background:#4b403b;color:#fff;border-color:#4b403b}.length-result-choice small{display:block;margin-top:4px;font-size:11px}
+.length-guide-option{background:#fff!important;border:1px solid #e5d9d0!important;color:#423831!important}.length-guide-option strong{color:#423831!important}
+@media(max-width:700px){.hero-logo{width:260px;height:260px;flex-basis:260px;margin:28px auto 0}.hero-logo::before{width:234px;height:234px}.logo-text{width:132px;height:48px;font-size:18px!important}.length-measure-entry button{width:100%}}

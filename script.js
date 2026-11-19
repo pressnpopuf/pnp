@@ -2989,7 +2989,23 @@ function getShippingFee() {
  'Tillbaka':'Back','Nästa':'Next','Lägg i varukorg':'Add to cart','Fortsätt':'Continue','Avbryt':'Cancel','Stäng':'Close',
  'Välj längd':'Choose length','Välj form':'Choose shape','Välj storlek':'Choose size','Färg':'Colour','Längd':'Length',
  'Storlek':'Size','Form':'Shape','Ändringar':'Changes','Ta bort':'Remove'
- };
+ ,
+ 'Hitta din nagellängd':'Find your nail length',
+ 'Mät från nagelbandet på tummen till den längd du önskar. Läs av måttet i millimeter och jämför med längderna nedan. Om ditt mått hamnar mellan två alternativ visas båda – välj själv den du gillar bäst.':'Measure from the cuticle on your thumb to your desired tip. Read the measurement in millimetres and compare it with the lengths below. If your measurement falls between two options, both will be shown – choose the one you prefer.',
+ 'Ditt mått från nagelband till önskad tipp':'Your measurement from cuticle to desired tip','Hitta min längd':'Find my length',
+ 'Ange ditt mått så rekommenderar vi en längd.':'Enter your measurement and we will suggest a length.',
+ 'Mät varje tå rakt över den bredaste delen och fyll i måtten i millimeter.':'Measure each toe across its widest point and enter the measurements in millimetres.'
+,
+ 'Lilltå':'Little toe','Tå 4':'Toe 4','Tå 3':'Toe 3','Tå 2':'Toe 2','Stortå':'Big toe',
+ 'Välj denna längd':'Choose this length','Ditt mått ligger mellan två längder. Välj den du föredrar:':'Your measurement falls between two lengths. Choose the one you prefer:',
+ 'Närmaste val för':'Closest option for','Skriv ett mått mellan 10 och 40 mm.':'Enter a measurement between 10 and 40 mm.',
+ 'Ditt mått':'Your measurement','mm uppmätt · närmast':'mm measured · closest to',
+ 'Klart! Alla dina mått är omräknade till storlekar.':'Done! All your measurements have been converted into sizes.',
+ 'Fyll i alla fem mått för att se din storlekskombination.':'Enter all five measurements to see your size combination.',
+ 'Börja med lillfingret och fortsätt mot tummen':'Start with your little finger and continue towards your thumb',
+ 'Mät varje nagel rakt över den bredaste delen. Skriv in måttet i millimeter – en ruta per finger.':'Measure each nail straight across its widest point. Enter the measurement in millimetres – one field per finger.',
+ 'Mät varje tå rakt över den bredaste delen och fyll i måtten i millimeter.':'Measure each toe straight across its widest point and enter the measurements in millimetres.'
+};
 Object.assign(translations,answerTranslations);
  const textNodes=[];
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
@@ -3232,7 +3248,7 @@ document.addEventListener("click", function(event) {
  document.querySelectorAll("[data-finder-type]").forEach(btn=>btn.addEventListener("click",()=>{
   type=btn.dataset.finderType;document.querySelectorAll("[data-finder-type]").forEach(x=>x.classList.toggle("selected",x===btn));
   $("finderFingerGrid").hidden=type==="toes";$("finderToeMeasure").hidden=type!=="toes";
-  if(type==="toes"){shape="Toes";$("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät tåtippen vid den bredaste punkten";$("finderHint").textContent="Skriv in bredden i millimeter för att få närmaste tåstorlek.";}
+  if(type==="toes"){shape="Toes";$("finderMeasureStep").querySelector(".finder-measure-label").textContent="Mät tåtippen vid den bredaste punkten";$("finderHint").textContent="Fyll i bredden på alla fem tår i millimeter för att få en samlad storlekslista.";}
   else{step("finderShapeStep");$("finderShapeLabel").textContent="VÄLJ FORM PÅ DINA NAGLAR";return;}
   step("finderMeasureStep");
  }));
@@ -3240,10 +3256,11 @@ document.addEventListener("click", function(event) {
  $("finderCalculate").addEventListener("click",()=>{
   const arr=widths[shape]; let results=[];
   if(type==="toes"){
-   const mm=parseFloat(String($("finderToeInput").value).replace(",","."));
-   if(!Number.isFinite(mm)||mm<7||mm>25){$("finderHint").textContent="Skriv ett mått mellan 7 och 25 mm.";return;}
-   const r=closest(mm,arr); const size=r.index===0?"00":String(r.index-1);
-   results=[{finger:"Tå",mm,size,width:r.width,diff:r.diff}];
+   const toeInputs=[...document.querySelectorAll(".finder-toe-measure-input")], toeNames=["Lilltå","Tå 4","Tå 3","Tå 2","Stortå"];
+   const values=toeInputs.map(i=>parseFloat(String(i.value).replace(",",".")));
+   const missing=values.findIndex(v=>!Number.isFinite(v)||v<7||v>25);
+   if(missing!==-1){$("finderHint").textContent="Fyll i ett giltigt mått (7–25 mm) för "+toeNames[missing].toLowerCase()+".";toeInputs[missing].focus();return;}
+   results=values.map((mm,i)=>{const r=closest(mm,arr);const size=r.index===0?"00":String(r.index-1);return {finger:toeNames[i],mm,size,width:r.width,diff:r.diff};});
   } else {
    const inputs=[...document.querySelectorAll(".finder-finger-measure")];
    const values=inputs.map(i=>parseFloat(String(i.value).replace(",",".")));
@@ -3255,7 +3272,7 @@ document.addEventListener("click", function(event) {
   $("finderResult").innerHTML=`<span class="finder-label">DIN STORLEKSKOMBINATION · ${shape}</span><div class="finder-result-list">${rows}</div><p class="finder-result-advice">Spara listan eller ta en skärmbild innan du går vidare till beställningen. Storlekarna är rekommendationer utifrån dina mått.</p>`;
   $("finderResult").hidden=false;$("finderHint").textContent="Klart! Alla dina mått är omräknade till storlekar.";
  });
- $("finderReset").addEventListener("click",()=>{type="";shape="";document.querySelectorAll(".finder-choice").forEach(x=>x.classList.remove("selected"));document.querySelectorAll(".finder-finger-measure").forEach(x=>x.value="");$("finderToeInput").value="";$("finderFingerGrid").hidden=false;$("finderToeMeasure").hidden=true;step("finderTypeStep");$("finderHint").textContent="Välj naglar eller tår för att börja.";});
+ $("finderReset").addEventListener("click",()=>{type="";shape="";document.querySelectorAll(".finder-choice").forEach(x=>x.classList.remove("selected"));document.querySelectorAll(".finder-finger-measure").forEach(x=>x.value="");document.querySelectorAll(".finder-toe-measure-input").forEach(i=>i.value="");$("finderFingerGrid").hidden=false;$("finderToeMeasure").hidden=true;step("finderTypeStep");$("finderHint").textContent="Välj naglar eller tår för att börja.";});
 })();
 
 /* Contact form: send directly through the same FormSubmit AJAX endpoint as orders. */
@@ -3322,3 +3339,18 @@ document.addEventListener("click", function(event) {
  window.addEventListener("scroll",onScroll,{passive:true});window.addEventListener("resize",onScroll);update();
 })();
 
+
+/* Length finder */
+(function(){
+ const input=document.getElementById("lengthMeasureInput"),button=document.getElementById("lengthMeasureButton"),hint=document.getElementById("lengthMeasureHint"),results=document.getElementById("lengthMeasureResults");
+ if(!input||!button||!hint||!results)return;
+ const lengths=[{name:"XX Short",mm:17},{name:"X Short",mm:20},{name:"Short",mm:23},{name:"Medium",mm:25}];
+ button.addEventListener("click",()=>{
+  const value=parseFloat(String(input.value).replace(",", "."));results.innerHTML="";
+  if(!Number.isFinite(value)||value<10||value>40){hint.textContent="Skriv ett mått mellan 10 och 40 mm.";return;}
+  let choices=[];const exact=lengths.find(x=>x.mm===value);
+  if(exact)choices=[exact];else{const lower=lengths.filter(x=>x.mm<value).at(-1),upper=lengths.find(x=>x.mm>value);choices=lower&&upper?[lower,upper]:[lower||upper];}
+  hint.textContent=choices.length===2?`Ditt mått (${String(value).replace(".",",")} mm) ligger mellan två längder. Välj den du föredrar:`:`Närmaste val för ${String(value).replace(".",",")} mm är:`;
+  choices.forEach(item=>{const btn=document.createElement("button");btn.type="button";btn.className="length-result-choice";btn.innerHTML=`<strong>${item.name}</strong><span>${item.mm} mm</span><small>Välj denna längd</small>`;btn.addEventListener("click",()=>{results.querySelectorAll("button").forEach(x=>x.classList.remove("selected"));btn.classList.add("selected");hint.textContent=`Du har valt ${item.name} (${item.mm} mm).`;});results.appendChild(btn);});
+ });
+})();

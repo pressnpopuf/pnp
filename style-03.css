@@ -335,3 +335,125 @@ button, input, select, textarea,
     .size-reference-nails .size-card h3 { font-size: clamp(18px, 4vw, 23px); }
     .social-card h3 { font-size: 29px; }
 }
+
+
+/* =========================================================
+   TYPOGRAFI – enhetlig, klassisk och lättläst
+   Fyra typsnitt totalt: DM Sans, Cormorant Garamond,
+   Poppins och Parisienne.
+========================================================= */
+:root {
+  --font-body: 'DM Sans', sans-serif;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-ui: 'Poppins', sans-serif;
+  --font-script: 'Parisienne', cursive;
+  --ink: #171417;
+  --soft-pink: #b34f73;
+  --deep-pink: #a84368;
+}
+
+/* Brödtext och all löpande information: ren och lättläst. */
+html, body, body * {
+  font-family: var(--font-body);
+}
+body {
+  color: var(--ink);
+}
+p, li, small, label, .description, .product-card-description,
+.faq-item, .faq-answer, .founder span, .site-detail,
+.size-card p, .size-table, .size-measure-grid,
+input, textarea, select {
+  color: var(--ink);
+  font-family: var(--font-body) !important;
+  line-height: 1.55;
+}
+
+/* Små rubriker: samma sans-serif som informationstexten, rosa. */
+h4, h5, h6,
+.section-subtitle, .eyebrow, .small-heading,
+.faq-item h3, .founder h3,
+.site-detail-menu-heading {
+  color: var(--soft-pink) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600;
+  letter-spacing: .015em;
+}
+
+/* Mellanstora rubriker och produktnamn: klassisk serif, svarta. */
+h2, h3,
+.product-card h3, .product-card-title,
+.nagel-kort h3, .size-kind-button > strong,
+.size-reference-choice button {
+  color: var(--ink);
+  font-family: var(--font-heading) !important;
+  font-weight: 600;
+}
+
+/* Stora sektionsrubriker: rosa, eleganta och tydliga. */
+h1, .rubrik, .section-title,
+.hero-text h1 {
+  color: var(--deep-pink) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 500;
+}
+
+/* Handstil används sparsamt och mer återhållet än tidigare. */
+.logo-text,
+.length-guide-option > span,
+.size-shape-options button,
+.size-reference-nails .size-card h3,
+.social-card h3 {
+  font-family: var(--font-script) !important;
+  font-weight: 400 !important;
+  color: var(--deep-pink) !important;
+  letter-spacing: 0;
+}
+
+/* Knappar – samma enkla stil som de små rubrikerna. */
+button, .bestall-knapp, .knapp, .knapp-outline,
+.back-button, .step-buttons button, .add-cart-button,
+.cart-button, .choice-button, .delivery-choice-button,
+.account-button, .file-picker-trigger,
+button span, .bestall-knapp span, .knapp span {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  letter-spacing: .01em;
+}
+
+/* Små informationsrubriker hålls rosa även i komponenter. */
+.size-step-title, .size-wizard h3,
+.faq-search-wrap label, .cart-section-title,
+.form-section-title {
+  color: var(--soft-pink) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600;
+}
+
+/* Undvik att gamla regler ger texter onödigt stora eller dekorativa former. */
+.hero-text h1 {
+  font-size: clamp(58px, 7vw, 88px);
+  line-height: 1.12;
+}
+.length-guide-option > span {
+  font-size: clamp(25px, 2.4vw, 32px);
+  line-height: 1.2;
+}
+.size-shape-options button {
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.2;
+}
+.size-reference-nails .size-card h3 {
+  font-size: clamp(22px, 2.2vw, 29px);
+  line-height: 1.2;
+}
+.social-card h3 {
+  font-size: clamp(26px, 2.6vw, 33px);
+  line-height: 1.15;
+}
+@media (max-width: 600px) {
+  .hero-text h1 { font-size: clamp(52px, 14vw, 72px); }
+  .length-guide-option > span { font-size: 27px; }
+  .size-shape-options button { font-size: clamp(17px, 4vw, 21px); }
+  .size-reference-nails .size-card h3 { font-size: clamp(19px, 4vw, 24px); }
+  .social-card h3 { font-size: 28px; }
+}

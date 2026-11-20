@@ -464,12 +464,13 @@
 </div>
 
 <div class="size-wizard" id="sizeWizard">
+  <div class="rubrik size-wizard-title"><span></span><h2>Hitta dina storlekar</h2></div>
   <div class="size-step-indicator"><span class="active" data-step-dot="1">1</span><i></i><span data-step-dot="2">2</span><i></i><span data-step-dot="3">3</span></div>
   <div class="size-step" data-step="1">
     <p class="size-step-kicker">STEG 1</p><h3>Vad vill du mäta?</h3><p>Välj om du vill hitta storlek för tånaglar eller fingernaglar.</p>
     <div class="size-kind-options">
-      <button type="button" class="size-kind-button" data-size-kind="toes"><span aria-hidden="true">♡</span><strong>Tår</strong><small>Hitta storlek för dina fem tår</small></button>
-      <button type="button" class="size-kind-button" data-size-kind="nails"><span aria-hidden="true">✧</span><strong>Fingernaglar</strong><small>Hitta storlek för dina fem fingrar</small></button>
+      <button type="button" class="size-kind-button" data-size-kind="toes"><strong>Tår</strong><small>Hitta storlek för dina fem tår</small></button>
+      <button type="button" class="size-kind-button" data-size-kind="nails"><strong>Naglar</strong><small>Hitta storlek för dina fem fingrar</small></button>
     </div>
   </div>
   <div class="size-step" data-step="2" hidden>
@@ -492,6 +493,90 @@
     <p class="size-measure-error" id="sizeMeasureError" role="alert" hidden>Fyll i alla fem mått med ett giltigt mm-värde.</p>
     <div class="size-wizard-actions"><button type="button" class="size-back-button" data-size-back="2">Tillbaka</button><button type="button" class="size-primary-button" id="findMySizes">Visa mina storlekar</button></div>
     <div class="size-results" id="sizeResults" aria-live="polite" hidden></div>
+  </div>
+</div>
+<div class="size-reference-toggle-wrap">
+  <button type="button" class="size-reference-toggle" id="toggleSizeReference" aria-expanded="false">Visa storleksmått</button>
+  <div class="size-reference-panel" id="sizeReferencePanel" hidden>
+    <div class="size-reference-choice" role="group" aria-label="Välj storleksmått">
+      <button type="button" class="selected" data-reference-kind="nails">Naglar</button>
+      <button type="button" data-reference-kind="toes">Tår</button>
+    </div>
+    <div class="size-reference-nails"><div class="size-content">
+    <div class="size-card">
+        <h3>Square</h3>
+        <p>Samma mått gäller för alla längder.</p>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>00</td><td>17,0 mm</td></tr><tr><td>01</td><td>16,0 mm</td></tr><tr><td>02</td><td>15,0 mm</td></tr><tr><td>03</td><td>14,0 mm</td></tr><tr><td>04</td><td>13,0 mm</td></tr><tr><td>05</td><td>12,0 mm</td></tr><tr><td>06</td><td>12,0 mm</td></tr><tr><td>07</td><td>11,0 mm</td></tr><tr><td>08</td><td>11,0 mm</td></tr><tr><td>09</td><td>10,0 mm</td></tr><tr><td>10</td><td>9,0 mm</td></tr><tr><td>11</td><td>8,0 mm</td></tr>
+        </table><div class="size-note">00 = störst · 11 = minst</div>
+    </div>
+
+    <div class="size-card">
+        <h3>Coffin</h3>
+        <p>Samma mått gäller för alla längder.</p>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>00</td><td>16,5 mm</td></tr><tr><td>01</td><td>16,0 mm</td></tr><tr><td>02</td><td>15,0 mm</td></tr><tr><td>03</td><td>14,5 mm</td></tr><tr><td>04</td><td>14,0 mm</td></tr><tr><td>05</td><td>12,5 mm</td></tr><tr><td>06</td><td>12,0 mm</td></tr><tr><td>07</td><td>11,5 mm</td></tr><tr><td>08</td><td>11,0 mm</td></tr><tr><td>09</td><td>10,5 mm</td></tr><tr><td>10</td><td>9,5 mm</td></tr><tr><td>11</td><td>8,5 mm</td></tr>
+        </table><div class="size-note">00 = störst · 11 = minst</div>
+    </div>
+
+    <div class="size-card">
+        <h3>Almond Medium</h3>
+        <p>Bredd på Almond Medium-tippar.</p>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>00</td><td>17,0 mm</td></tr><tr><td>01</td><td>16,0 mm</td></tr><tr><td>02</td><td>15,0 mm</td></tr><tr><td>03</td><td>14,0 mm</td></tr><tr><td>04</td><td>13,0 mm</td></tr><tr><td>05</td><td>12,5 mm</td></tr><tr><td>06</td><td>12,0 mm</td></tr><tr><td>07</td><td>11,5 mm</td></tr><tr><td>08</td><td>11,0 mm</td></tr><tr><td>09</td><td>10,5 mm</td></tr><tr><td>10</td><td>9,5 mm</td></tr><tr><td>11</td><td>8,5 mm</td></tr>
+        </table><div class="size-note">00 = störst · 11 = minst</div>
+    </div>
+
+    <div class="size-card">
+        <h3>Almond Short</h3>
+        <p>Bredd på Almond Short-tippar.</p>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>00</td><td>19,0 mm</td></tr><tr><td>01</td><td>17,5 mm</td></tr><tr><td>02</td><td>16,0 mm</td></tr><tr><td>03</td><td>15,0 mm</td></tr><tr><td>04</td><td>14,5 mm</td></tr><tr><td>05</td><td>14,0 mm</td></tr><tr><td>06</td><td>13,5 mm</td></tr><tr><td>07</td><td>13,0 mm</td></tr><tr><td>08</td><td>12,0 mm</td></tr><tr><td>09</td><td>11,0 mm</td></tr><tr><td>10</td><td>10,0 mm</td></tr><tr><td>11</td><td>9,0 mm</td></tr>
+        </table><div class="size-note">00 = störst · 11 = minst</div>
+    </div>
+
+    <div class="size-card">
+        <h3>Toes</h3>
+        <p>Bredd på tåtippar. Samma mått gäller för alla längder.</p>
+        <div class="size-table-split">
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>00</td><td>23 mm</td></tr><tr><td>0</td><td>21,5 mm</td></tr><tr><td>1</td><td>20,5 mm</td></tr><tr><td>2</td><td>20 mm</td></tr><tr><td>3</td><td>19 mm</td></tr>
+        </table>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>4</td><td>18 mm</td></tr><tr><td>5</td><td>15 mm</td></tr><tr><td>6</td><td>14 mm</td></tr><tr><td>7</td><td>13 mm</td></tr><tr><td>8</td><td>12 mm</td></tr>
+        </table>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>9</td><td>10,5 mm</td></tr><tr><td>10</td><td>10 mm</td></tr><tr><td>11</td><td>9 mm</td></tr><tr><td>12</td><td>8 mm</td></tr><tr><td>13</td><td>7 mm</td></tr>
+        </table>
+        </div><div class="size-note">00 = störst · 13 = minst</div>
+    </div>
+</div></div>
+    <div class="size-reference-toes" hidden><div class="size-content"><div class="size-card">
+        <h3>Toes</h3>
+        <p>Bredd på tåtippar. Samma mått gäller för alla längder.</p>
+        <div class="size-table-split">
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>00</td><td>23 mm</td></tr><tr><td>0</td><td>21,5 mm</td></tr><tr><td>1</td><td>20,5 mm</td></tr><tr><td>2</td><td>20 mm</td></tr><tr><td>3</td><td>19 mm</td></tr>
+        </table>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>4</td><td>18 mm</td></tr><tr><td>5</td><td>15 mm</td></tr><tr><td>6</td><td>14 mm</td></tr><tr><td>7</td><td>13 mm</td></tr><tr><td>8</td><td>12 mm</td></tr>
+        </table>
+        <table class="size-table">
+            <tr><th>Storlek</th><th>Bredd</th></tr>
+            <tr><td>9</td><td>10,5 mm</td></tr><tr><td>10</td><td>10 mm</td></tr><tr><td>11</td><td>9 mm</td></tr><tr><td>12</td><td>8 mm</td></tr><tr><td>13</td><td>7 mm</td></tr>
+        </table>
+        </div><div class="size-note">00 = störst · 13 = minst</div>
+    </div></div>
+</div>
   </div>
 </div>
 </section>
@@ -616,20 +701,6 @@
 
 </div>
 
-<div class="contact-form-card">
-  <div class="contact-form-intro"><span>VI HJÄLPER DIG GÄRNA</span><h3>Kontakta oss</h3><p>Fyll i formuläret så återkommer vi så snart vi kan.</p></div>
-  <form id="pressnpopContactForm">
-    <div class="contact-form-grid">
-      <label for="contactName">Namn</label><input id="contactName" name="name" type="text" autocomplete="name" placeholder="Ditt namn" required>
-      <label for="contactEmail">E-post</label><input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="din@email.se" required>
-      <label for="contactTopic">Vad gäller din fråga?</label><select id="contactTopic" name="Ämne" required><option value="" disabled selected>Välj ett ämne</option><option>Beställning</option><option>Storlekar & passform</option><option>Produkter & design</option><option>Frakt & leverans</option><option>Betalning</option><option>Reklamation eller problem</option><option>Övrigt</option></select>
-      <label for="contactMessage">Ditt meddelande</label><textarea id="contactMessage" name="Meddelande" rows="5" placeholder="Skriv din fråga här..." required></textarea>
-    </div>
-    <button class="contact-submit-button" type="submit" id="contactSubmitButton">Skicka meddelande</button>
-    <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
-  </form>
-</div>
-
 <div class="socials">
 
     <a
@@ -668,6 +739,23 @@
     </a>
 
 </div>
+<div class="contact-form-trigger-wrap">
+  <button type="button" class="contact-form-trigger" id="toggleContactForm" aria-expanded="false">Kontaktformulär</button>
+</div>
+<div class="contact-form-card" id="contactFormPanel" hidden>
+  <div class="contact-form-intro"><span>VI HJÄLPER DIG GÄRNA</span><h3>Kontakta oss</h3><p>Fyll i formuläret så återkommer vi så snart vi kan.</p></div>
+  <form id="pressnpopContactForm">
+    <div class="contact-form-grid">
+      <label for="contactName">Namn</label><input id="contactName" name="name" type="text" autocomplete="name" placeholder="Ditt namn" required>
+      <label for="contactEmail">E-post</label><input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="din@email.se" required>
+      <label for="contactTopic">Vad gäller din fråga?</label><select id="contactTopic" name="Ämne" required><option value="" disabled selected>Välj ett ämne</option><option>Beställning</option><option>Storlekar &amp; passform</option><option>Produkter &amp; design</option><option>Frakt &amp; leverans</option><option>Betalning</option><option>Reklamation eller problem</option><option>Övrigt</option></select>
+      <label for="contactMessage">Ditt meddelande</label><textarea id="contactMessage" name="Meddelande" rows="5" placeholder="Skriv din fråga här..." required></textarea>
+    </div>
+    <button class="contact-submit-button" type="submit" id="contactSubmitButton">Skicka meddelande</button>
+    <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
 
 <p class="email">
     E-post:

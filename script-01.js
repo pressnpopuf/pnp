@@ -3059,25 +3059,26 @@ Object.assign(translations,answerTranslations);
       kind=selected;
       root.querySelectorAll('[data-size-kind]').forEach(b=>b.classList.toggle('selected',b.dataset.sizeKind===kind));
       const isNails=kind==='nails';
-      root.querySelector('#sizeStepTwoTitle').textContent=isNails?'Välj formen du vill köpa':'Redo att mäta dina tår?';
-      root.querySelector('#sizeStepTwoCopy').textContent=isNails?'Storlekarna skiljer sig mellan olika former. Välj den form du vill beställa.':'Nu kan du fylla i bredden på dina fem tår.';
+      root.querySelector('#sizeStepTwoTitle').textContent='Välj formen du vill köpa';
+      root.querySelector('#sizeStepTwoCopy').textContent='Storlekarna skiljer sig mellan olika former. Välj den form du vill beställa.';
       root.querySelector('#sizeShapeOptions').hidden=!isNails;
-      root.querySelector('[data-size-next="3"]').textContent=isNails?'Fortsätt till måtten':'Fortsätt till måtten';
-      showStep(2);
+      root.querySelectorAll('[data-step-dot]').forEach(dot=>{dot.hidden=!isNails && dot.dataset.stepDot==='2';});
+      if (isNails) showStep(2); else prepareMeasurements();
     };
     root.querySelectorAll('[data-size-kind]').forEach(b=>b.addEventListener('click',()=>setKind(b.dataset.sizeKind)));
     root.querySelectorAll('[data-size-shape]').forEach(b=>b.addEventListener('click',()=>{
       shape=b.dataset.sizeShape; root.querySelectorAll('[data-size-shape]').forEach(x=>x.classList.toggle('selected',x===b));
     }));
-    root.querySelectorAll('[data-size-back]').forEach(b=>b.addEventListener('click',()=>showStep(Number(b.dataset.sizeBack))));
-    root.querySelector('[data-size-next="3"]').addEventListener('click',()=>{
+    function prepareMeasurements(){
       const names=labels[kind]; names.forEach((name,i)=>root.querySelector('#sizeLabel'+i).textContent=name);
       root.querySelector('#sizeStepThreeNumber').textContent=kind==='nails'?'3':'2';
       root.querySelector('#sizeMeasureTitle').textContent=kind==='nails'?'Fyll i måtten för dina fem naglar':'Fyll i måtten för dina fem tår';
       root.querySelectorAll('#sizeMeasureGrid input').forEach(input=>input.value='');
       root.querySelector('#sizeResults').hidden=true;
       showStep(3);
-    });
+    }
+    root.querySelectorAll('[data-size-back]').forEach(b=>b.addEventListener('click',()=>showStep(kind==='toes'?1:Number(b.dataset.sizeBack))));
+    root.querySelector('[data-size-next="3"]').addEventListener('click',prepareMeasurements);
     const fmt = n => Number(n).toLocaleString('sv-SE',{maximumFractionDigits:1});
     root.querySelector('#findMySizes').addEventListener('click',()=>{
       const fields=[...root.querySelectorAll('#sizeMeasureGrid input')];
@@ -3094,13 +3095,23 @@ Object.assign(translations,answerTranslations);
         return {label:labels[kind][i],mm,matches};
       });
       const resultBox=root.querySelector('#sizeResults');
-      resultBox.innerHTML=`<div class="size-result-heading"><span>DITT RESULTAT</span><h3>Här är dina rekommenderade storlekar</h3><p>Vi har jämfört varje mått med ${kind==='toes'?'våra tåtippar':`våra ${shape}-tippar`} och valt närmaste bredd.</p></div><div class="size-result-list">${results.map(r=>`<div class="size-result-row"><div><strong>${r.label}</strong><small>Ditt mått: ${fmt(r.mm)} mm</small></div><div class="size-result-match">${r.matches.map(m=>`<strong>${m.size==='0'&&kind==='nails'?'00':m.size}</strong><small>${fmt(m.width)} mm</small>`).join(' ')}</div></div>`).join('')}</div><p class="size-result-note">Storleksförslaget är en uppskattning utifrån närmaste bredd. Om du hamnar mellan två storlekar kan passformen även påverkas av nagelns form.</p><button type="button" class="size-back-button size-restart-button">Börja om</button>`;
+      resultBox.innerHTML=`<div class="size-result-heading"><span>DITT RESULTAT</span><h3>Här är dina rekommenderade storlekar</h3><p>Storlek för varje ${kind==='toes'?'tå':'finger'} utifrån måttet du angav och ${kind==='toes'?'våra tåtippar':`formen ${shape}`}.</p></div><div class="size-result-tiles">${results.map(r=>`<div class="size-result-tile"><strong>${r.label}</strong><span>${r.matches.map(m=>m.size==='0'&&kind==='nails'?'00':m.size).join(' / ')}</span><small>Storlek ${kind==='toes'?'00–13':'0–11'}</small></div>`).join('')}</div><p class="size-result-note">Storleksförslaget är en uppskattning utifrån närmaste bredd.</p><button type="button" class="size-back-button size-restart-button">Börja om</button>`;
       resultBox.hidden=false;
       resultBox.querySelector('.size-restart-button').addEventListener('click',()=>{kind='';shape='Almond Medium';root.querySelectorAll('[data-size-kind]').forEach(x=>x.classList.remove('selected'));root.querySelectorAll('[data-size-shape]').forEach(x=>x.classList.toggle('selected',x.dataset.sizeShape==='Almond Medium'));showStep(1);});
       resultBox.scrollIntoView({behavior:'smooth',block:'nearest'});
     });
+    root.querySelectorAll('[data-step-dot]').forEach(dot=>{dot.hidden=false;});
     showStep(1);
   }
+
+  const referenceToggle=document.getElementById('toggleSizeReference');
+  const referencePanel=document.getElementById('sizeReferencePanel');
+  if(referenceToggle&&referencePanel){referenceToggle.addEventListener('click',()=>{const open=referencePanel.hidden;referencePanel.hidden=!open;referenceToggle.setAttribute('aria-expanded',String(open));referenceToggle.textContent=open?'Dölj storleksmått':'Visa storleksmått';});
+    referencePanel.querySelectorAll('[data-reference-kind]').forEach(button=>button.addEventListener('click',()=>{const toes=button.dataset.referenceKind==='toes';referencePanel.querySelectorAll('[data-reference-kind]').forEach(b=>b.classList.toggle('selected',b===button));referencePanel.querySelector('.size-reference-nails').hidden=toes;referencePanel.querySelector('.size-reference-toes').hidden=!toes;}));}
+
+  const contactToggle=document.getElementById('toggleContactForm');
+  const contactPanel=document.getElementById('contactFormPanel');
+  if(contactToggle&&contactPanel){contactToggle.addEventListener('click',()=>{const open=contactPanel.hidden;contactPanel.hidden=!open;contactToggle.setAttribute('aria-expanded',String(open));if(open)contactPanel.scrollIntoView({behavior:'smooth',block:'nearest'});});}
 
   const form=document.getElementById('pressnpopContactForm');
   if(form){

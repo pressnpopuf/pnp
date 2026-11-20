@@ -286,3 +286,52 @@ button, input, select, textarea,
     height: 46px;
   }
 }
+
+
+/* PressN'Pop – kalligrafisk accent inspirerad av logotypen */
+.hero-text h1,
+.length-guide-option > span,
+.size-shape-options button,
+.size-reference-nails .size-card h3,
+.social-card h3 {
+    font-family: 'Alex Brush', 'Dancing Script', cursive !important;
+    font-weight: 400 !important;
+    color: #a84368;
+    letter-spacing: 0;
+}
+
+.hero-text h1 {
+    font-size: clamp(76px, 8vw, 112px);
+    line-height: 1.05;
+    margin: 4px 0 12px;
+}
+
+.length-guide-option > span {
+    font-size: clamp(25px, 2.5vw, 33px);
+    line-height: 1.15;
+}
+
+.size-shape-options button {
+    font-size: clamp(19px, 2vw, 26px);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.size-reference-nails .size-card h3 {
+    font-size: clamp(22px, 2.2vw, 31px);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.social-card h3 {
+    font-size: clamp(27px, 2.8vw, 36px);
+    line-height: 1.1;
+}
+
+@media (max-width: 600px) {
+    .hero-text h1 { font-size: clamp(66px, 17vw, 88px); }
+    .length-guide-option > span { font-size: 27px; }
+    .size-shape-options button { font-size: clamp(16px, 4vw, 21px); }
+    .size-reference-nails .size-card h3 { font-size: clamp(18px, 4vw, 23px); }
+    .social-card h3 { font-size: 29px; }
+}

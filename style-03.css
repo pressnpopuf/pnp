@@ -87,3 +87,18 @@ html { scroll-behavior: smooth; }
  .size-result-tile>small{font-size:8px}
  .size-reference-panel{padding:12px 8px}
 }
+
+
+/* Finjusteringar av storleksguiden */
+.size-wizard-title h2{color:var(--morkrosa)!important}
+.size-shape-options{grid-template-columns:repeat(4,minmax(0,1fr));max-width:720px;gap:10px}
+.size-shape-options button{min-width:0;min-height:88px;padding:12px 8px}
+.size-result-tile>span{display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.15}
+.size-result-tile .size-result-width{font-size:10px;font-weight:500;color:#806e75;white-space:nowrap}
+.size-reference-nails[hidden],.size-reference-toes[hidden]{display:none!important}
+@media(max-width:600px){
+ .size-shape-options{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;max-width:100%}
+ .size-shape-options button{min-height:74px;padding:9px 3px;font-size:10px;overflow-wrap:anywhere}
+ .size-result-tile>span{font-size:15px}
+ .size-result-tile .size-result-width{font-size:8px}
+}

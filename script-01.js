@@ -3095,7 +3095,13 @@ Object.assign(translations,answerTranslations);
         return {label:labels[kind][i],mm,matches};
       });
       const resultBox=root.querySelector('#sizeResults');
-      resultBox.innerHTML=`<div class="size-result-heading"><span>DITT RESULTAT</span><h3>Här är dina rekommenderade storlekar</h3><p>Storlek för varje ${kind==='toes'?'tå':'finger'} utifrån måttet du angav och ${kind==='toes'?'våra tåtippar':`formen ${shape}`}.</p></div><div class="size-result-tiles">${results.map(r=>`<div class="size-result-tile"><strong>${r.label}</strong><span>${r.matches.map(m=>m.size==='0'&&kind==='nails'?'00':m.size).join(' / ')}</span><small>Storlek ${kind==='toes'?'00–13':'0–11'}</small></div>`).join('')}</div><p class="size-result-note">Storleksförslaget är en uppskattning utifrån närmaste bredd.</p><button type="button" class="size-back-button size-restart-button">Börja om</button>`;
+      const english=document.documentElement.lang==='en';
+      const resultTitle=english?'Here are your recommended sizes':'Här är dina rekommenderade storlekar';
+      const resultIntro=english
+        ? `Suggested size for each ${kind==='toes'?'toe':'finger'} based on your measurement and ${kind==='toes'?'our toe tips':`${shape} shape`}.`
+        : `Storlek för varje ${kind==='toes'?'tå':'finger'} utifrån måttet du angav och ${kind==='toes'?'våra tåtippar':`formen ${shape}`}.`;
+      const resultNote=english?'The suggested size is an estimate based on the closest width.':'Storleksförslaget är en uppskattning utifrån närmaste bredd.';
+      resultBox.innerHTML=`<div class="size-result-heading"><span>${english?'YOUR RESULT':'DITT RESULTAT'}</span><h3>${resultTitle}</h3><p>${resultIntro}</p></div><div class="size-result-tiles">${results.map(r=>`<div class="size-result-tile"><strong>${r.label}</strong>${r.matches.map(m=>`<span>${m.size==='00'?'00':m.size} <small class="size-result-width">(${fmt(m.width)} mm)</small></span>`).join('')}</div>`).join('')}</div><p class="size-result-note">${resultNote}</p><button type="button" class="size-back-button size-restart-button">${english?'Start over':'Börja om'}</button>`;
       resultBox.hidden=false;
       resultBox.querySelector('.size-restart-button').addEventListener('click',()=>{kind='';shape='Almond Medium';root.querySelectorAll('[data-size-kind]').forEach(x=>x.classList.remove('selected'));root.querySelectorAll('[data-size-shape]').forEach(x=>x.classList.toggle('selected',x.dataset.sizeShape==='Almond Medium'));showStep(1);});
       resultBox.scrollIntoView({behavior:'smooth',block:'nearest'});

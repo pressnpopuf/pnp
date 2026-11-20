@@ -102,3 +102,20 @@ html { scroll-behavior: smooth; }
  .size-result-tile>span{font-size:15px}
  .size-result-tile .size-result-width{font-size:8px}
 }
+
+
+/* Menyn visas som en sidopanel från höger; alla kategorier börjar stängda. */
+.site-detail-menu{
+ position:fixed!important;top:0!important;right:0!important;bottom:0!important;
+ width:min(390px,90vw)!important;max-height:100dvh!important;height:100dvh!important;
+ overflow-y:auto!important;overscroll-behavior:contain;padding:28px 22px 24px!important;
+ border-radius:22px 0 0 22px!important;border:1px solid #ead6dd!important;
+ box-shadow:-18px 0 48px rgba(60,35,44,.18)!important;z-index:9999!important;
+ background:#fffaf8!important;
+}
+.site-detail-menu[hidden]{display:none!important}
+.site-menu-group:not([open])>.site-menu-sublist{display:none}
+.site-menu-group summary{cursor:pointer}
+@media(max-width:600px){
+ .site-detail-menu{width:min(360px,88vw)!important;padding:24px 18px!important}
+}

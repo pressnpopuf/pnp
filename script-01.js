@@ -3082,7 +3082,8 @@ Object.assign(translations,answerTranslations);
     const fmt = n => Number(n).toLocaleString('sv-SE',{maximumFractionDigits:1});
     root.querySelector('#findMySizes').addEventListener('click',()=>{
       const fields=[...root.querySelectorAll('#sizeMeasureGrid input')];
-      const values=fields.map(x=>Number(String(x.value).replace(',','.')));
+      // Decimal measurements are rounded up to the next whole millimetre before matching.
+      const values=fields.map(x=>{const raw=Number(String(x.value).replace(',','.'));return Number.isFinite(raw)&&!Number.isInteger(raw)?Math.ceil(raw):raw;});
       if(values.some((v,i)=>!fields[i].value.trim()||!Number.isFinite(v)||v<=0||v>40)){
         root.querySelector('#sizeMeasureError').hidden=false; fields.find((x,i)=>!x.value.trim()||!Number.isFinite(values[i])||values[i]<=0||values[i]>40)?.focus(); return;
       }
@@ -3091,7 +3092,15 @@ Object.assign(translations,answerTranslations);
       const results=values.map((mm,i)=>{
         const distances=Object.entries(chart).map(([size,width])=>({size,width,diff:Math.abs(width-mm)}));
         const min=Math.min(...distances.map(x=>x.diff));
-        const matches=distances.filter(x=>Math.abs(x.diff-min)<0.001).sort((a,b)=>Number(a.size)-Number(b.size));
+        const nearest=distances.filter(x=>Math.abs(x.diff-min)<0.001).sort((a,b)=>Number(a.size)-Number(b.size));
+        let matches=[nearest[0]];
+        // Only Square has deliberately shared size widths: 5/6 (12 mm) and 7/8 (11 mm).
+        // Never combine sizes merely because two different widths are equally close.
+        if(kind==='nails' && shape==='Square'){
+          const shared=Object.entries(chart).filter(([size,width])=>width===nearest[0].width)
+            .sort((a,b)=>Number(a[0])-Number(b[0]));
+          if(shared.length>1) matches=shared.map(([size,width])=>({size,width,diff:Math.abs(width-mm)}));
+        }
         return {label:labels[kind][i],mm,matches};
       });
       const resultBox=root.querySelector('#sizeResults');

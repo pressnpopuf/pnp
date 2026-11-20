@@ -57,6 +57,7 @@
     <span></span><span></span><span></span>
 </button>
 <div class="site-detail-menu" id="siteDetailMenu" hidden>
+    <button type="button" class="site-detail-menu-close" aria-label="Stäng meny" onclick="closeSiteDetailMenu()">×</button>
     <div class="site-detail-menu-heading">Utforska PressN’Pop</div>
     <p class="site-detail-menu-intro">Hitta din favorit eller hoppa direkt till en del av sidan.</p>
     <a href="#hem" onclick="closeSiteDetailMenu()">⌂ Hem</a>
@@ -484,11 +485,11 @@
     <p class="size-step-kicker">STEG <span id="sizeStepThreeNumber">2</span></p><h3 id="sizeMeasureTitle">Fyll i dina mått</h3>
     <p>Mät varje naturlig nagel/tå från sida till sida vid den bredaste punkten. Skriv måttet i millimeter (mm).</p>
     <div class="size-measure-grid" id="sizeMeasureGrid">
-      <label><span id="sizeLabel0">Stortå</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 1 i millimeter"></label>
-      <label><span id="sizeLabel1">Tå 2</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 2 i millimeter"></label>
-      <label><span id="sizeLabel2">Tå 3</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 3 i millimeter"></label>
-      <label><span id="sizeLabel3">Tå 4</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 4 i millimeter"></label>
-      <label><span id="sizeLabel4">Lilltå</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 5 i millimeter"></label>
+      <label><span id="sizeLabel0">Stortå</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 1 i millimeter"></label>
+      <label><span id="sizeLabel1">Tå 2</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 2 i millimeter"></label>
+      <label><span id="sizeLabel2">Tå 3</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 3 i millimeter"></label>
+      <label><span id="sizeLabel3">Tå 4</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 4 i millimeter"></label>
+      <label><span id="sizeLabel4">Lilltå</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 5 i millimeter"></label>
     </div>
     <p class="size-measure-error" id="sizeMeasureError" role="alert" hidden>Fyll i alla fem mått med ett giltigt mm-värde.</p>
     <div class="size-wizard-actions"><button type="button" class="size-back-button" data-size-back="2">Tillbaka</button><button type="button" class="size-primary-button" id="findMySizes">Visa mina storlekar</button></div>
@@ -539,24 +540,7 @@
         </table><div class="size-note">00 = störst · 11 = minst</div>
     </div>
 
-    <div class="size-card">
-        <h3>Toes</h3>
-        <p>Bredd på tåtippar. Samma mått gäller för alla längder.</p>
-        <div class="size-table-split">
-        <table class="size-table">
-            <tr><th>Storlek</th><th>Bredd</th></tr>
-            <tr><td>00</td><td>23 mm</td></tr><tr><td>0</td><td>21,5 mm</td></tr><tr><td>1</td><td>20,5 mm</td></tr><tr><td>2</td><td>20 mm</td></tr><tr><td>3</td><td>19 mm</td></tr>
-        </table>
-        <table class="size-table">
-            <tr><th>Storlek</th><th>Bredd</th></tr>
-            <tr><td>4</td><td>18 mm</td></tr><tr><td>5</td><td>15 mm</td></tr><tr><td>6</td><td>14 mm</td></tr><tr><td>7</td><td>13 mm</td></tr><tr><td>8</td><td>12 mm</td></tr>
-        </table>
-        <table class="size-table">
-            <tr><th>Storlek</th><th>Bredd</th></tr>
-            <tr><td>9</td><td>10,5 mm</td></tr><tr><td>10</td><td>10 mm</td></tr><tr><td>11</td><td>9 mm</td></tr><tr><td>12</td><td>8 mm</td></tr><tr><td>13</td><td>7 mm</td></tr>
-        </table>
-        </div><div class="size-note">00 = störst · 13 = minst</div>
-    </div>
+    
 </div></div>
     <div class="size-reference-toes" hidden><div class="size-content"><div class="size-card">
         <h3>Toes</h3>

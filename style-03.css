@@ -119,3 +119,7 @@ html { scroll-behavior: smooth; }
 @media(max-width:600px){
  .site-detail-menu{width:min(360px,88vw)!important;padding:24px 18px!important}
 }
+
+.site-detail-menu{position:fixed}
+.site-detail-menu-close{position:sticky;top:0;float:right;z-index:2;display:grid;place-items:center;width:42px;height:42px;margin:-8px -6px 8px 12px;border:1px solid #ead6dd;border-radius:50%;background:#fff;color:#8b5368;font-size:28px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(60,35,44,.08)}
+.site-detail-menu-close:hover{background:#f8e9ee}

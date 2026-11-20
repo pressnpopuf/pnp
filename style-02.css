@@ -1,0 +1,75 @@
+
+/* Centrera underrubriken i kontaktsektionen. */
+.kontakt .rubrik span {
+    display: block !important;
+    width: 100%;
+    text-align: center;
+    transform: none !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Ge grundarnas namn- och rollrutor mer utrymme och jämnare text. */
+.founders {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+}
+.founders .founder {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 14px 10px;
+    box-sizing: border-box;
+}
+.founders .founder span {
+    font-size: 11px;
+    line-height: 1.5;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+@media (max-width: 600px) {
+    .founders { gap: 7px; }
+    .founders .founder { padding: 12px 5px; }
+    .founders .founder span { font-size: 10px; }
+}
+
+
+/* Bredare layout för bild och grundarrutor i Om oss. */
+.about-content {
+    width: calc(100% - 48px);
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.about-card {
+    width: 100%;
+    box-sizing: border-box;
+}
+@media (max-width: 600px) {
+    .about-content {
+        width: calc(100% - 24px);
+    }
+}
+
+/* Skala ner hela den rosa Om oss-rutan inklusive innehållet. */
+.about-card {
+    transform: scale(0.90);
+    transform-origin: center center;
+}
+@media (max-width: 600px) {
+    .about-card {
+        transform: scale(0.94);
+    }
+}
+
+
+/* Visa grundarbilden i den befintliga rosa ramen. */
+.about-photo {
+    display: block;
+    width: 100%;
+    height: clamp(210px, 26vw, 330px);
+    object-fit: cover;
+    object-position: center 58%;
+    border-radius: 16px;
+    margin: 0 0 22px;
+}

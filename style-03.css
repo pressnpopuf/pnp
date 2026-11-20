@@ -104,22 +104,105 @@ html { scroll-behavior: smooth; }
 }
 
 
-/* Menyn visas som en sidopanel från höger; alla kategorier börjar stängda. */
-.site-detail-menu{
- position:fixed!important;top:0!important;right:0!important;bottom:0!important;
- width:min(390px,90vw)!important;max-height:100dvh!important;height:100dvh!important;
- overflow-y:auto!important;overscroll-behavior:contain;padding:28px 22px 24px!important;
- border-radius:22px 0 0 22px!important;border:1px solid #ead6dd!important;
- box-shadow:-18px 0 48px rgba(60,35,44,.18)!important;z-index:9999!important;
- background:#fffaf8!important;
+/* Storleksmåtten för naglar: exakt fyra jämnstora kort i en rad. */
+.size-reference-nails .size-content{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  align-items:stretch;
+  gap:12px;
 }
-.site-detail-menu[hidden]{display:none!important}
-.site-menu-group:not([open])>.site-menu-sublist{display:none}
-.site-menu-group summary{cursor:pointer}
+.size-reference-nails .size-card{
+  width:auto !important;
+  min-width:0;
+  height:100%;
+  grid-column:auto !important;
+  justify-self:stretch !important;
+  padding:clamp(8px,1.4vw,18px);
+}
+.size-reference-nails .size-card h3{font-size:clamp(14px,1.7vw,25px);overflow-wrap:anywhere}
+.size-reference-nails .size-card p{font-size:clamp(9px,.9vw,12px);line-height:1.45}
+.size-reference-nails .size-table{font-size:clamp(8px,.85vw,11px)}
+.size-reference-nails .size-table th,.size-reference-nails .size-table td{padding:clamp(3px,.55vw,7px) 2px}
 @media(max-width:600px){
- .site-detail-menu{width:min(360px,88vw)!important;padding:24px 18px!important}
+  .size-reference-nails .size-content{grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:5px}
+  .size-reference-nails .size-card{padding:7px 3px;border-radius:10px}
+  .size-reference-nails .size-card h3{font-size:clamp(10px,3vw,14px);line-height:1.2}
+  .size-reference-nails .size-card p{font-size:8px;min-height:0}
+  .size-reference-nails .size-table{font-size:8px}
+  .size-reference-nails .size-table th,.size-reference-nails .size-table td{padding:4px 1px}
+  .size-reference-nails .size-note{font-size:7px}
 }
 
-.site-detail-menu{position:fixed}
-.site-detail-menu-close{position:sticky;top:0;float:right;z-index:2;display:grid;place-items:center;width:42px;height:42px;margin:-8px -6px 8px 12px;border:1px solid #ead6dd;border-radius:50%;background:#fff;color:#8b5368;font-size:28px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(60,35,44,.08)}
-.site-detail-menu-close:hover{background:#f8e9ee}
+
+/* Visuell förfining: tydligare kontraster och elegantare typografi */
+:root {
+  --rosa: #cf7896;
+  --morkrosa: #b94f76;
+  --ljusrosa: #f7e3ea;
+  --text: #392b32;
+  --rubrik-rosa: #c45f83;
+  --underrubrik-mork: #503543;
+  --brodtext-mork: #5f5158;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif !important;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2 {
+  font-family: 'Cormorant Garamond', serif !important;
+  color: var(--rubrik-rosa) !important;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  text-rendering: optimizeLegibility;
+}
+
+h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif !important;
+  color: var(--underrubrik-mork) !important;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  text-rendering: optimizeLegibility;
+}
+
+/* Stora sektionsrubriker får rosa accent, medan underrubrikerna hålls mörka. */
+.rubrik h2,
+.hero-text h1,
+.size-wizard-title h2 {
+  color: var(--rubrik-rosa) !important;
+}
+.hero-text h2,
+.size-step h3,
+.contact-form-intro h3,
+.size-result-heading h3,
+.policy-card h3,
+.nagel-info h3,
+.faq-item summary {
+  color: var(--underrubrik-mork) !important;
+}
+
+p, li, label, .faq-answer, .rubrik p {
+  color: var(--brodtext-mork);
+  font-family: 'DM Sans', sans-serif;
+}
+
+button, input, select, textarea,
+.size-shape-options button,
+.size-primary-button, .size-back-button,
+.size-reference-toggle, .contact-form-trigger,
+.contact-submit-button {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.site-detail-menu-heading {
+  font-family: 'Cormorant Garamond', serif !important;
+  color: var(--rubrik-rosa) !important;
+  font-size: 31px;
+}
+
+@media (max-width: 600px) {
+  h1, h2 { letter-spacing: -.015em; }
+}

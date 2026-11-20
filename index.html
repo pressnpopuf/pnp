@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style-01.css">
 
@@ -57,13 +57,12 @@
     <span></span><span></span><span></span>
 </button>
 <div class="site-detail-menu" id="siteDetailMenu" hidden>
-    <button type="button" class="site-detail-menu-close" aria-label="Stäng meny" onclick="closeSiteDetailMenu()">×</button>
     <div class="site-detail-menu-heading">Utforska PressN’Pop</div>
     <p class="site-detail-menu-intro">Hitta din favorit eller hoppa direkt till en del av sidan.</p>
     <a href="#hem" onclick="closeSiteDetailMenu()">⌂ Hem</a>
     <a href="#sa-funkar-det" onclick="closeSiteDetailMenu()"> Så funkar det</a>
     <a href="#detta-ingar" onclick="closeSiteDetailMenu()"> Det här ingår i nagelset</a>
-    <details class="site-menu-group">
+    <details class="site-menu-group" open>
         <summary>Alla naglar</summary>
         <div class="site-menu-sublist">
             <a href="#naglar" onclick="closeSiteDetailMenu()">Se alla naglar</a>
@@ -485,11 +484,11 @@
     <p class="size-step-kicker">STEG <span id="sizeStepThreeNumber">2</span></p><h3 id="sizeMeasureTitle">Fyll i dina mått</h3>
     <p>Mät varje naturlig nagel/tå från sida till sida vid den bredaste punkten. Skriv måttet i millimeter (mm).</p>
     <div class="size-measure-grid" id="sizeMeasureGrid">
-      <label><span id="sizeLabel0">Stortå</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 1 i millimeter"></label>
-      <label><span id="sizeLabel1">Tå 2</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 2 i millimeter"></label>
-      <label><span id="sizeLabel2">Tå 3</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 3 i millimeter"></label>
-      <label><span id="sizeLabel3">Tå 4</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 4 i millimeter"></label>
-      <label><span id="sizeLabel4">Lilltå</span><input inputmode="decimal" type="text" maxlength="5" autocomplete="off" placeholder="mm" aria-label="Mått 5 i millimeter"></label>
+      <label><span id="sizeLabel0">Stortå</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 1 i millimeter"></label>
+      <label><span id="sizeLabel1">Tå 2</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 2 i millimeter"></label>
+      <label><span id="sizeLabel2">Tå 3</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 3 i millimeter"></label>
+      <label><span id="sizeLabel3">Tå 4</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 4 i millimeter"></label>
+      <label><span id="sizeLabel4">Lilltå</span><input inputmode="decimal" type="number" min="1" max="40" step="0.1" placeholder="mm" aria-label="Mått 5 i millimeter"></label>
     </div>
     <p class="size-measure-error" id="sizeMeasureError" role="alert" hidden>Fyll i alla fem mått med ett giltigt mm-värde.</p>
     <div class="size-wizard-actions"><button type="button" class="size-back-button" data-size-back="2">Tillbaka</button><button type="button" class="size-primary-button" id="findMySizes">Visa mina storlekar</button></div>
@@ -540,7 +539,6 @@
         </table><div class="size-note">00 = störst · 11 = minst</div>
     </div>
 
-    
 </div></div>
     <div class="size-reference-toes" hidden><div class="size-content"><div class="size-card">
         <h3>Toes</h3>

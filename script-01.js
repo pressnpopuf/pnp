@@ -3082,25 +3082,25 @@ Object.assign(translations,answerTranslations);
     const fmt = n => Number(n).toLocaleString('sv-SE',{maximumFractionDigits:1});
     root.querySelector('#findMySizes').addEventListener('click',()=>{
       const fields=[...root.querySelectorAll('#sizeMeasureGrid input')];
-      // Decimal measurements are rounded up to the next whole millimetre before matching.
-      const values=fields.map(x=>{const raw=Number(String(x.value).replace(',','.'));return Number.isFinite(raw)&&!Number.isInteger(raw)?Math.ceil(raw):raw;});
+      const values=fields.map(x=>Number(String(x.value).replace(',','.')));
       if(values.some((v,i)=>!fields[i].value.trim()||!Number.isFinite(v)||v<=0||v>40)){
         root.querySelector('#sizeMeasureError').hidden=false; fields.find((x,i)=>!x.value.trim()||!Number.isFinite(values[i])||values[i]<=0||values[i]>40)?.focus(); return;
       }
       root.querySelector('#sizeMeasureError').hidden=true;
       const chart=kind==='toes'?toeChart:nailCharts[shape];
-      const results=values.map((mm,i)=>{
+      const results=values.map((rawMm,i)=>{
+        // Round the entered measurement to the nearest 0.5 mm (not always upwards).
+        // Example: 10.2 -> 10.0 mm, while 10.3 -> 10.5 mm.
+        const mm=Math.round(rawMm*2)/2;
         const distances=Object.entries(chart).map(([size,width])=>({size,width,diff:Math.abs(width-mm)}));
         const min=Math.min(...distances.map(x=>x.diff));
-        const nearest=distances.filter(x=>Math.abs(x.diff-min)<0.001).sort((a,b)=>Number(a.size)-Number(b.size));
-        let matches=[nearest[0]];
-        // Only Square has deliberately shared size widths: 5/6 (12 mm) and 7/8 (11 mm).
-        // Never combine sizes merely because two different widths are equally close.
-        if(kind==='nails' && shape==='Square'){
-          const shared=Object.entries(chart).filter(([size,width])=>width===nearest[0].width)
-            .sort((a,b)=>Number(a[0])-Number(b[0]));
-          if(shared.length>1) matches=shared.map(([size,width])=>({size,width,diff:Math.abs(width-mm)}));
-        }
+        // If two different widths are equally close, choose the larger width.
+        const closestWidth=Math.max(...distances.filter(x=>Math.abs(x.diff-min)<0.001).map(x=>x.width));
+        const sameWidth=distances.filter(x=>Math.abs(x.width-closestWidth)<0.001).sort((a,b)=>Number(a.size)-Number(b.size));
+        // Combine equal-width size numbers only for the Square nail shape.
+        const matches=(kind==='nails' && shape==='Square' && sameWidth.length>1)
+          ? [{size:sameWidth.map(x=>x.size).join('/'),width:closestWidth}]
+          : [{size:sameWidth[0].size,width:closestWidth}];
         return {label:labels[kind][i],mm,matches};
       });
       const resultBox=root.querySelector('#sizeResults');
@@ -3110,7 +3110,7 @@ Object.assign(translations,answerTranslations);
         ? `Suggested size for each ${kind==='toes'?'toe':'finger'} based on your measurement and ${kind==='toes'?'our toe tips':`${shape} shape`}.`
         : `Storlek för varje ${kind==='toes'?'tå':'finger'} utifrån måttet du angav och ${kind==='toes'?'våra tåtippar':`formen ${shape}`}.`;
       const resultNote=english?'The suggested size is an estimate based on the closest width.':'Storleksförslaget är en uppskattning utifrån närmaste bredd.';
-      resultBox.innerHTML=`<div class="size-result-heading"><span>${english?'YOUR RESULT':'DITT RESULTAT'}</span><h3>${resultTitle}</h3><p>${resultIntro}</p></div><div class="size-result-tiles">${results.map(r=>`<div class="size-result-tile"><strong>${r.label}</strong><span>${r.matches.map(m=>m.size==='00'?'00':m.size).join('/')} <small class="size-result-width">(${fmt(r.matches[0].width)} mm)</small></span></div>`).join('')}</div><p class="size-result-note">${resultNote}</p><button type="button" class="size-back-button size-restart-button">${english?'Start over':'Börja om'}</button>`;
+      resultBox.innerHTML=`<div class="size-result-heading"><span>${english?'YOUR RESULT':'DITT RESULTAT'}</span><h3>${resultTitle}</h3><p>${resultIntro}</p></div><div class="size-result-tiles">${results.map(r=>`<div class="size-result-tile"><strong>${r.label}</strong>${r.matches.map(m=>`<span>${m.size==='00'?'00':m.size} <small class="size-result-width">(${fmt(m.width)} mm)</small></span>`).join('')}</div>`).join('')}</div><p class="size-result-note">${resultNote}</p><button type="button" class="size-back-button size-restart-button">${english?'Start over':'Börja om'}</button>`;
       resultBox.hidden=false;
       resultBox.querySelector('.size-restart-button').addEventListener('click',()=>{kind='';shape='Almond Medium';root.querySelectorAll('[data-size-kind]').forEach(x=>x.classList.remove('selected'));root.querySelectorAll('[data-size-shape]').forEach(x=>x.classList.toggle('selected',x.dataset.sizeShape==='Almond Medium'));showStep(1);});
       resultBox.scrollIntoView({behavior:'smooth',block:'nearest'});

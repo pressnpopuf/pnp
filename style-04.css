@@ -88,6 +88,43 @@
   margin: 4px 0 8px !important;
 }
 
+
+/* ---------- French Toes på produktkortet: samma stil som "Nude Leo" ---------- */
+.nagel-info h3 .toe-name,
+.nagel-info h3 .toe-label {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  font-style: inherit !important;
+  letter-spacing: inherit !important;
+  text-transform: inherit !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  display: inline !important;
+}
+.nagel-info h3 .toe-label { margin-left: .25em !important; }
+
+/* ---------- Namn på grundarna + "Utforska PressN'Pop": skrivstil som logotypen ---------- */
+.founder strong,
+.site-detail-menu-heading {
+  font-family: var(--font-script) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--script-pink) !important;
+}
+.founder strong {
+  display: block;
+  font-size: clamp(30px, 3vw, 38px) !important;
+  line-height: 1.1 !important;
+  margin-bottom: 2px;
+}
+.site-detail-menu-heading {
+  font-size: 34px !important;
+  line-height: 1.1 !important;
+}
+
 /* ---------- Mobil ---------- */
 @media (max-width: 600px) {
   .logo-text { font-size: 32px !important; }
@@ -98,4 +135,6 @@
   .size-reference-toes .size-card > h3 { font-size: 30px !important; }
   .social-card h3 { font-size: 34px !important; }
   .step-title { font-size: 30px !important; }
+  .founder strong { font-size: 28px !important; }
+  .site-detail-menu-heading { font-size: 30px !important; }
 }

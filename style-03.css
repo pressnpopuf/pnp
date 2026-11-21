@@ -457,3 +457,133 @@ button span, .bestall-knapp span, .knapp span {
   .size-reference-nails .size-card h3 { font-size: clamp(19px, 4vw, 24px); }
   .social-card h3 { font-size: 28px; }
 }
+
+
+/* TYPOGRAFI – nedtonad, klassisk accent utan överdriven skrivstil.
+   Cormorant Garamond används som elegant rubrikstil, aldrig som
+   en dekorativ handskriftsfont. */
+:root {
+  --font-body: 'DM Sans', sans-serif;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-ui: 'Poppins', sans-serif;
+  --ink: #171417;
+  --soft-pink: #b34f73;
+  --deep-pink: #a84368;
+}
+
+/* Ta bort alla tidigare skrivstilsregler och ersätt med diskret serif. */
+.logo-text,
+.hero-text h1,
+.length-guide-option > span,
+.size-shape-options button,
+.size-reference-nails .size-card h3,
+.social-card h3 {
+  font-family: var(--font-heading) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  letter-spacing: -.025em !important;
+  color: var(--deep-pink) !important;
+  text-shadow: none !important;
+}
+
+/* Ordmärket på startsidan ska vara tydligt och elegant, inte snirkligt. */
+.hero-text h1 {
+  font-size: clamp(58px, 7vw, 88px) !important;
+  line-height: 1.05 !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  letter-spacing: -.045em !important;
+}
+
+/* Logotypen i navigationen följer samma klassiska uttryck. */
+.logo-text {
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-style: italic !important;
+}
+
+/* Storleksval och sociala rubriker: lätt kursiv serif, inte handskrift. */
+.length-guide-option > span { font-size: clamp(24px, 2.3vw, 31px) !important; }
+.size-shape-options button { font-size: clamp(18px, 1.9vw, 24px) !important; }
+.size-reference-nails .size-card h3 { font-size: clamp(22px, 2.1vw, 28px) !important; }
+.social-card h3 { font-size: clamp(25px, 2.5vw, 32px) !important; }
+
+/* Storleksguidens fråga blir en mellanrubrik: diskret serif, svart. */
+.size-step[data-step="1"] > h3 {
+  font-family: var(--font-heading) !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: clamp(25px, 2.6vw, 32px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.02em !important;
+  color: var(--ink) !important;
+  margin-bottom: 8px;
+}
+
+/* Håll beskrivningen under frågan enkel och svart. */
+.size-step[data-step="1"] > p:not(.size-step-kicker) {
+  font-family: var(--font-body) !important;
+  color: var(--ink) !important;
+}
+
+/* Inga andra dekorativa script-typsnitt ska kunna slå igenom. */
+[style*="Dancing Script"], [style*="Alex Brush"], [style*="Parisienne"] {
+  font-family: var(--font-heading) !important;
+}
+@media (max-width: 600px) {
+  .hero-text h1 { font-size: clamp(50px, 13vw, 70px) !important; }
+  .logo-text { font-size: 23px; }
+}
+
+
+/* PRESSN'POP – skrivstilen från den uppladdade logotypreferensen.
+   Denna accent används ENDAST på de uttryckligen önskade namnen. */
+:root { --font-logo-script: 'Alex Brush', cursive; }
+
+.hero-text h1,
+.logo-text,
+.length-guide-option > span,
+.size-shape-options button,
+.size-reference-nails .size-card h3,
+.social-card h3 {
+  font-family: var(--font-logo-script) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--deep-pink, #a84368) !important;
+  text-shadow: none !important;
+}
+
+/* Logotypen på startsidan får mer plats för de svepande bokstäverna. */
+.hero-text h1 {
+  font-size: clamp(68px, 8vw, 108px) !important;
+  line-height: 1.08 !important;
+  margin: 4px 0 12px !important;
+}
+
+/* Övriga markerade ord får samma skrivstil, i en balanserad storlek. */
+.logo-text { font-size: clamp(27px, 2.8vw, 38px) !important; }
+.length-guide-option > span {
+  font-size: clamp(29px, 2.8vw, 37px) !important;
+  line-height: 1.15 !important;
+}
+.size-shape-options button {
+  font-size: clamp(24px, 2.3vw, 31px) !important;
+  line-height: 1.15 !important;
+}
+.size-reference-nails .size-card h3 {
+  font-size: clamp(27px, 2.5vw, 34px) !important;
+  line-height: 1.15 !important;
+}
+.social-card h3 {
+  font-size: clamp(31px, 3vw, 39px) !important;
+  line-height: 1.15 !important;
+}
+@media (max-width: 600px) {
+  .hero-text h1 { font-size: clamp(62px, 16vw, 88px) !important; }
+  .logo-text { font-size: 27px !important; }
+  .length-guide-option > span { font-size: 30px !important; }
+  .size-shape-options button { font-size: 24px !important; }
+  .size-reference-nails .size-card h3 { font-size: 28px !important; }
+  .social-card h3 { font-size: 32px !important; }
+}

@@ -2,6 +2,11 @@
 /* Complete English language layer: translates existing and dynamically-created interface text. */
 (function () {
   const dictionary = {"PressN’Pop UF":"PressN’Pop UF",
+"Välj vad du vill mäta":"Choose what you want to measure",
+"Naglar":"Nails","Tår":"Toes",
+"Fyll i dina mått":"Enter your measurements",
+"Hitta dina storlekar":"Find your sizes",
+
 "Gäller ett set, används en gång. Max 2 storlekar byts = max 4 nya naglar, skickas gratis. Gäller i 4 månader efter köpet.":"Applies to one set, used once. Up to 2 sizes can be exchanged = up to 4 new nails, shipped for free. Valid for 4 months after purchase.",
 "Gäller ett set, används en gång. Ersätter max 2 naglar, skickas gratis. Gäller i 4 månader efter köpet.":"Applies to one set, used once. Replaces up to 2 nails, shipped for free. Valid for 4 months after purchase.",
 "Gäller ett set, används en gång.":"Applies to one set, used once.",

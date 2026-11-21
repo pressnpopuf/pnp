@@ -218,8 +218,8 @@
   font-size: clamp(20px, 4.6vw, 26px) !important;
 }
 
-/* ====== Storleksguiden: allt i ca 80 % skala (rutor och texter) ====== */
-.size-section { zoom: 0.8; }
+/* ====== Storleksguiden: allt i ca 90 % skala (rutor och texter) ====== */
+.size-section { zoom: 0.9; }
 
 /* Tår / Naglar: samma storlek som rubriken "Välj vad du vill mäta" */
 .size-kind-button > strong {
@@ -231,4 +231,27 @@
 @media (max-width: 600px) {
   .size-kind-button > strong { font-size: 25px !important; }
   .size-kind-button > small { font-size: 12px !important; }
+}
+
+/* ====== Formval: 2 x 2 lika stora rutor (Almond uppe, Square/Coffin under), samma på mobil ====== */
+.size-shape-options {
+  container-type: inline-size;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  max-width: 460px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  gap: 10px !important;
+}
+.size-shape-options button {
+  width: 100% !important;
+  min-width: 0 !important;
+  flex: none !important;
+  min-height: 64px !important;
+  padding: 8px 4px !important;
+  white-space: nowrap !important;
+  font-size: 24px !important;
+  font-size: clamp(16px, 6.6cqw, 26px) !important;
+  display: flex !important; align-items: center; justify-content: center;
 }

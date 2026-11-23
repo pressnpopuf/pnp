@@ -472,7 +472,7 @@
          try {
              if (button) {
                  button.disabled = true;
-                 button.textContent = "Skickar beställning...";
+                 button.textContent = "Skapar mejlfil...";
                  button.style.opacity = "0.7";
                  button.style.cursor = "wait";
              }

@@ -325,56 +325,40 @@
          }
          window.pressNPopSendingImages = true;
          try {
-         // Varje bild ska fortfarande bli ett eget mejl. Kontrollera därför
-         // storleken per bild (inte summan av alla bilder, eftersom mejlen är separata).
-         const oversizedIndex = files.findIndex(file =>
-             Math.floor((file.base64.length * 3) / 4) > 9 * 1024 * 1024
-         );
-         if (oversizedIndex !== -1) {
-             window.lastOrderSendError = `Inspo-bild ${oversizedIndex + 1} är för stor för FormSubmit (max 10 MB per mejl).`;
+         // Skicka inte en order tyst utan inspo-bilderna som kunden valt.
+         const totalBytes = files.reduce((sum, file) => sum + Math.floor((file.base64.length * 3) / 4), 0);
+         if (totalBytes > 9 * 1024 * 1024) {
+             window.lastOrderSendError = "Inspo-bilderna är tillsammans för stora för FormSubmit (max 10 MB).";
              return false;
          }
 
-         // Ett fristående FormSubmit-mejl per uppladdad bild, precis som tidigare.
-         // Skicka högst tre separata mejl parallellt i stället för att vänta på
-         // varje mejl och sedan lägga på ytterligare 1,2 sekunders paus.
+         // Ett fristående FormSubmit-anrop per uppladdad bild.
+         // En bild ger ett mejl; två bilder ger två mejl, även om kunden
+         // har flera andra produkter i varukorgen.
          if (files.length > 0) {
-             let nextIndex = 0;
-             let completed = 0;
-             const results = new Array(files.length);
-             const worker = async () => {
-                 while (true) {
-                     const index = nextIndex++;
-                     if (index >= files.length) return;
-                     const file = files[index];
-                     const mailSubject = files.length > 1
-                         ? `${subject} – Inspo ${index + 1} av ${files.length}`
-                         : subject;
-                     const mailBody = body + "\n\n" +
-                         `Bifogad inspirationsbild: ${file.name}\n` +
-                         (files.length > 1
-                             ? `Detta är mejl ${index + 1} av ${files.length}; det innehåller endast denna bild.\n`
-                             : "Detta mejl innehåller beställningens inspirationsbild.\n");
-                     try {
-                         results[index] = await postOrderToFormSubmit(
-                             mailSubject, mailBody, customerName, customerEmail, [file]
-                         );
-                     } catch (error) {
-                         results[index] = { ok: false, message: error.message || "kunde inte skickas" };
-                     }
-                     completed++;
-                     if (typeof onProgress === "function") onProgress(completed, files.length);
+             for (let index = 0; index < files.length; index++) {
+                 if (typeof onProgress === "function") onProgress(index + 1, files.length);
+                 const file = files[index];
+                 const mailSubject = files.length > 1
+                     ? `${subject} – Inspo ${index + 1} av ${files.length}`
+                     : subject;
+                 const mailBody = body + "\n\n" +
+                     `Bifogad inspirationsbild: ${file.name}\n` +
+                     (files.length > 1
+                         ? `Detta är mejl ${index + 1} av ${files.length}; det innehåller endast denna bild.\n`
+                         : "Detta mejl innehåller beställningens inspirationsbild.\n");
+                 const result = await postOrderToFormSubmit(
+                     mailSubject, mailBody, customerName, customerEmail, [file]
+                 );
+                 if (!result.ok) {
+                     window.lastOrderSendError = `Mejl ${index + 1} av ${files.length}: ` +
+                         (result.message || "kunde inte skickas");
+                     return false;
                  }
-             };
-
-             const workerCount = Math.min(3, files.length);
-             await Promise.all(Array.from({ length: workerCount }, () => worker()));
-             const failedIndex = results.findIndex(result => !result || !result.ok);
-             if (failedIndex !== -1) {
-                 const failedResult = results[failedIndex] || {};
-                 window.lastOrderSendError = `Mejl ${failedIndex + 1} av ${files.length}: ` +
-                     (failedResult.message || "kunde inte skickas");
-                 return false;
+                 // Kort paus mellan separata inskick för att inte skicka dem samtidigt.
+                 if (index < files.length - 1) {
+                     await new Promise(resolve => setTimeout(resolve, 1200));
+                 }
              }
              window.lastOrderSendError = "";
              return true;

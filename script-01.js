@@ -305,10 +305,17 @@
              return postOrderViaHiddenForm(Array.from(formData.entries()), files);
          }
 
+         // Beställningar utan bilder behöver inte multipart/form-data.
+         // Skicka ett kompakt URL-kodat formulär direkt, utan bilagehantering.
+         const simpleFields = new URLSearchParams();
+         for (const [key, value] of formData.entries()) simpleFields.append(key, value);
          const response = await fetch("https://formsubmit.co/ajax/pressnpop.uf@gmail.com", {
              method: "POST",
-             headers: { "Accept": "application/json" },
-             body: formData
+             headers: {
+                 "Accept": "application/json",
+                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+             },
+             body: simpleFields.toString()
          });
          const result = await response.json().catch(() => ({}));
          const ok = response.ok && (result.success === true || result.success === "true");
@@ -3137,17 +3144,37 @@ Object.assign(translations,answerTranslations);
       if(!form.reportValidity()) return;
       const original=button.textContent; button.disabled=true; button.textContent='Skickar...'; status.textContent=''; status.className='contact-form-status';
       const data=new FormData(form);
-      data.append('_subject','Ny kontaktfråga – PressN’Pop UF');
-      data.append('_template','table');
-      data.append('_captcha','false');
+      data.set('_subject','Ny kontaktfråga – PressN’Pop UF');
+      data.set('_template','table');
+      data.set('_captcha','false');
+      // Låt företaget svara direkt till avsändarens adress.
+      data.set('_replyto',String(data.get('email')||'').trim());
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),20000);
       try{
-        const response=await fetch('https://formsubmit.co/ajax/pressnpop.uf@gmail.com',{method:'POST',headers:{'Accept':'application/json'},body:data});
-        const result=await response.json();
-        if(!response.ok||result.success===false) throw new Error(result.message||'Meddelandet kunde inte skickas.');
-        status.textContent='Tack! Ditt meddelande har skickats. Vi återkommer så snart vi kan.'; status.classList.add('success'); form.reset();
+        const response=await fetch('https://formsubmit.co/ajax/pressnpop.uf@gmail.com',{
+          method:'POST',headers:{'Accept':'application/json'},body:data,signal:controller.signal
+        });
+        const result=await response.json().catch(()=>null);
+        // FormSubmit kan returnera success som boolean eller strängen "true".
+        // Ett HTTP 200-svar ensamt räcker inte som bekräftelse.
+        if(!response.ok||!result||(result.success!==true&&result.success!=='true')){
+          throw new Error(result&&result.message||'Ingen bekräftelse från mejltjänsten.');
+        }
+        status.textContent='Tack! Mejltjänsten har tagit emot ditt meddelande. Vi återkommer så snart vi kan.';
+        status.classList.add('success');
+        form.reset();
       }catch(error){
-        status.textContent='Det gick inte att skicka meddelandet just nu. Försök igen eller mejla pressnpop.uf@gmail.com.'; status.classList.add('error');
-      }finally{button.disabled=false;button.textContent=original;}
+        console.warn('Kontaktformuläret kunde inte bekräfta skickningen:',error);
+        status.textContent=error.name==='AbortError'
+          ? 'Det tog för lång tid att få svar. Kontrollera om meddelandet kom fram innan du försöker igen, eller mejla pressnpop.uf@gmail.com.'
+          : 'Det gick inte att bekräfta att meddelandet skickades. Försök igen eller mejla pressnpop.uf@gmail.com.';
+        status.classList.add('error');
+      }finally{
+        clearTimeout(timeout);
+        button.disabled=false;
+        button.textContent=original;
+      }
     });
   }
 })();

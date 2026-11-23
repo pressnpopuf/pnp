@@ -184,29 +184,6 @@
          setTimeout(() => URL.revokeObjectURL(url), 60000);
      }
 
-     // Snabb väg: skickar formuläret (inkl. bild) med fetch och väntar bara på serverns svar,
-     // inte på att FormSubmits hela tacksida med typsnitt/skript ska laddas i en ram.
-     async function postOrderViaFetch(fields, files) {
-         const file = files[0];
-         const formData = new FormData();
-         fields.forEach(([name, value]) => formData.append(name, String(value)));
-         const bytes = Uint8Array.from(atob(file.base64), c => c.charCodeAt(0));
-         formData.append("attachment", new File([bytes], file.name, { type: file.mimeType || "application/octet-stream" }));
-         const controller = new AbortController();
-         const timer = setTimeout(() => controller.abort(), 20000);
-         try {
-             await fetch("https://formsubmit.co/pressnpop.uf@gmail.com", {
-                 method: "POST",
-                 mode: "no-cors",
-                 body: formData,
-                 signal: controller.signal
-             });
-             return { ok: true, message: "" };
-         } finally {
-             clearTimeout(timer);
-         }
-     }
-
      function postOrderViaHiddenForm(fields, files) {
          // Ett separat formulär/iframe per bild. srcdoc ger en tydlig startsida
          // även i mobila Safari, där about:blank ibland redan hunnit laddas
@@ -325,13 +302,7 @@
          // Bilagor stöds inte av FormSubmits AJAX-läge. Med bilder skickas därför ett vanligt
          // formulär (multipart) via en dold ram, vilket är det sätt FormSubmit stöder bilagor på.
          if (files.length) {
-             const fieldList = Array.from(formData.entries());
-             try {
-                 return await postOrderViaFetch(fieldList, files);
-             } catch (fastError) {
-                 console.warn("Snabb skickning misslyckades, provar reservmetod:", fastError);
-                 return postOrderViaHiddenForm(fieldList, files);
-             }
+             return postOrderViaHiddenForm(Array.from(formData.entries()), files);
          }
 
          const response = await fetch("https://formsubmit.co/ajax/pressnpop.uf@gmail.com", {
@@ -354,43 +325,55 @@
          }
          window.pressNPopSendingImages = true;
          try {
-         // Skicka inte en order tyst utan inspo-bilderna som kunden valt.
-         const totalBytes = files.reduce((sum, file) => sum + Math.floor((file.base64.length * 3) / 4), 0);
-         if (totalBytes > 9 * 1024 * 1024) {
-             window.lastOrderSendError = "Inspo-bilderna är tillsammans för stora för FormSubmit (max 10 MB).";
+         // Varje bild ska fortfarande bli ett eget mejl. Kontrollera därför
+         // storleken per bild (inte summan av alla bilder, eftersom mejlen är separata).
+         const oversizedIndex = files.findIndex(file =>
+             Math.floor((file.base64.length * 3) / 4) > 9 * 1024 * 1024
+         );
+         if (oversizedIndex !== -1) {
+             window.lastOrderSendError = `Inspo-bild ${oversizedIndex + 1} är för stor för FormSubmit (max 10 MB per mejl).`;
              return false;
          }
 
-         // Ett fristående FormSubmit-anrop per uppladdad bild, men alla skickas
-         // samtidigt (ingen väntan mellan dem) så att kunden slipper vänta i onödan.
+         // Ett fristående FormSubmit-mejl per uppladdad bild, precis som tidigare.
+         // Skicka högst tre separata mejl parallellt i stället för att vänta på
+         // varje mejl och sedan lägga på ytterligare 1,2 sekunders paus.
          if (files.length > 0) {
-             let done = 0;
-             if (typeof onProgress === "function") onProgress(0, files.length);
-             const results = await Promise.all(files.map(async (file, index) => {
-                 const mailSubject = files.length > 1
-                     ? `${subject} – Inspo ${index + 1} av ${files.length}`
-                     : subject;
-                 const mailBody = body + "\n\n" +
-                     `Bifogad inspirationsbild: ${file.name}\n` +
-                     (files.length > 1
-                         ? `Detta är mejl ${index + 1} av ${files.length}; det innehåller endast denna bild.\n`
-                         : "Detta mejl innehåller beställningens inspirationsbild.\n");
-                 let result;
-                 try {
-                     result = await postOrderToFormSubmit(
-                         mailSubject, mailBody, customerName, customerEmail, [file]
-                     );
-                 } catch (err) {
-                     result = { ok: false, message: err.message || "kunde inte skickas" };
+             let nextIndex = 0;
+             let completed = 0;
+             const results = new Array(files.length);
+             const worker = async () => {
+                 while (true) {
+                     const index = nextIndex++;
+                     if (index >= files.length) return;
+                     const file = files[index];
+                     const mailSubject = files.length > 1
+                         ? `${subject} – Inspo ${index + 1} av ${files.length}`
+                         : subject;
+                     const mailBody = body + "\n\n" +
+                         `Bifogad inspirationsbild: ${file.name}\n` +
+                         (files.length > 1
+                             ? `Detta är mejl ${index + 1} av ${files.length}; det innehåller endast denna bild.\n`
+                             : "Detta mejl innehåller beställningens inspirationsbild.\n");
+                     try {
+                         results[index] = await postOrderToFormSubmit(
+                             mailSubject, mailBody, customerName, customerEmail, [file]
+                         );
+                     } catch (error) {
+                         results[index] = { ok: false, message: error.message || "kunde inte skickas" };
+                     }
+                     completed++;
+                     if (typeof onProgress === "function") onProgress(completed, files.length);
                  }
-                 done++;
-                 if (typeof onProgress === "function") onProgress(done, files.length);
-                 return result;
-             }));
-             const failedIndex = results.findIndex(r => !r.ok);
+             };
+
+             const workerCount = Math.min(3, files.length);
+             await Promise.all(Array.from({ length: workerCount }, () => worker()));
+             const failedIndex = results.findIndex(result => !result || !result.ok);
              if (failedIndex !== -1) {
+                 const failedResult = results[failedIndex] || {};
                  window.lastOrderSendError = `Mejl ${failedIndex + 1} av ${files.length}: ` +
-                     (results[failedIndex].message || "kunde inte skickas");
+                     (failedResult.message || "kunde inte skickas");
                  return false;
              }
              window.lastOrderSendError = "";
@@ -505,7 +488,7 @@
          try {
              if (button) {
                  button.disabled = true;
-                 button.textContent = "Skapar mejlfil...";
+                 button.textContent = "Skickar beställning...";
                  button.style.opacity = "0.7";
                  button.style.cursor = "wait";
              }
@@ -542,7 +525,7 @@
                      subject, body, `${firstName} ${lastName}`, email, attachments,
                      (current, total) => {
                          if (button) button.textContent = total > 1
-                             ? `Skickar... (${current} av ${total} klara)`
+                             ? `Skickar bild ${current} av ${total} automatiskt...`
                              : "Skickar beställning...";
                      }
                  );
